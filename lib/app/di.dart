@@ -1,4 +1,5 @@
 import 'package:approducts/app/app_prefs.dart';
+import 'package:approducts/data/data_resource/local_data_sqlift.dart';
 import 'package:approducts/data/data_resource/remote_data_source.dart';
 import 'package:approducts/data/network/app_api.dart';
 import 'package:approducts/data/network/dio_factory.dart';
@@ -14,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final instance = GetIt.instance;
 
 Future<void> initAppModule() async {
+
   final sharedPrefs = await SharedPreferences.getInstance();
 
   // shared prefs instance
