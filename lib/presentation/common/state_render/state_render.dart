@@ -1,4 +1,5 @@
 import 'package:approducts/data/mapper/mapper.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:approducts/presentation/resources/style_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,13 @@ class StateRenderer extends StatelessWidget {
     switch (stateRendererType) {
       case StateRendererType.POPUP_LOADING_STATE:
         return _getPopUpDialog(
-            context, []);
+            context, [
+          LoadingAnimationWidget.twistingDots(
+            leftDotColor: const Color(0xFF1A1A3F),
+            rightDotColor: const Color(0xFFEA3799),
+            size: AppSize.s65,
+          ),
+        ]);
       case StateRendererType.POPUP_ERROR_STATE:
         return _getPopUpDialog(context, [
           _getMessage(message),

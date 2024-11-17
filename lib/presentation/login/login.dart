@@ -36,6 +36,7 @@ class _LoginState extends State<LoginView> {
         .addListener(() => _viewModel.setPassword(_passwordController.text));
     _viewModel.isUserLoggedInSuccessFullyStreamController.stream
         .listen((token) {
+
       SchedulerBinding.instance.addPostFrameCallback((_) {
         _appPreferences.setUserToken(token);
         resetModules();
@@ -54,7 +55,7 @@ class _LoginState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorManager.primary,
-        body: StreamBuilder(
+        body: StreamBuilder<FlowState>(
             stream: _viewModel.outputState,
             builder: (context, snapshot) {
               return snapshot.data
@@ -88,7 +89,7 @@ class _LoginState extends State<LoginView> {
                         width: AppSize.s300,
                         child: Column(
                           children: [
-                            StreamBuilder(
+                            StreamBuilder<bool>(
                                 stream: _viewModel.outputIsUserNameValid,
                                 builder: (context, snapshot) {
                                   return TextFormField(
@@ -104,7 +105,7 @@ class _LoginState extends State<LoginView> {
                                             : AppStrings.usernameError.tr()),
                                   );
                                 }),
-                            StreamBuilder(
+                            StreamBuilder<bool>(
                                 stream: _viewModel.outputIsPasswordValid,
                                 builder: (context, snapshot) {
                                   return TextFormField(
@@ -127,11 +128,15 @@ class _LoginState extends State<LoginView> {
                     ],
                   ),
                   SizedBox(height: AppSize.s20),
-                  ElevatedButton(
-                      onPressed: () {
-                        _viewModel.login();
-                      },
-                      child: Text(AppStrings.start_session).tr())
+                  StreamBuilder<bool>(
+                      stream: _viewModel.outputIsAllInputsValid,
+                      builder: (context, snapshot) {
+                        return ElevatedButton(
+                            onPressed: (snapshot.data ?? false)? (){
+                              _viewModel.login();
+                            }: null,
+                            child: Text(AppStrings.start_session).tr());
+                      })
                 ],
               ))),
     );

@@ -9,11 +9,11 @@ import 'package:approducts/presentation/common/state_render/state_render_impl.da
 
 class LoginViewModel extends BaseViewModel
     implements LoginViewModelInputs, LoginViewModelOutputs {
-  StreamController _userNameStreamController =
+  final StreamController _userNameStreamController =
       StreamController<String>.broadcast();
-  StreamController _passwordStreamController =
+  final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
-  StreamController _isAllInputsValidStreamController =
+  final StreamController _isAllInputsValidStreamController =
       StreamController<void>.broadcast();
   StreamController isUserLoggedInSuccessFullyStreamController =
       StreamController<String>();
@@ -25,20 +25,6 @@ class LoginViewModel extends BaseViewModel
   LoginViewModel(this._loginUseCase);
 
   @override
-  Sink get inputIsAllInputValid => _isAllInputsValidStreamController.sink;
-
-  @override
-  Sink get inputPassword => _passwordStreamController.sink;
-
-  @override
-  Sink get inputUserName => _userNameStreamController.sink;
-
-  @override
-  void start() {
-    inputState.add(ContentState());
-  }
-
-  @override
   void dispose() {
     _userNameStreamController.close();
     _passwordStreamController.close();
@@ -47,15 +33,35 @@ class LoginViewModel extends BaseViewModel
   }
 
   @override
+  void start() {
+    inputState.add(ContentState());
+  }
+
+
+  @override
+  Sink get inputIsAllInputValid => _isAllInputsValidStreamController.sink;
+
+  @override
+  Sink get inputPassword => _passwordStreamController.sink;
+
+  @override
+  Sink get inputUserName => _userNameStreamController.sink;
+
+
+  @override
   login() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
     (await _loginUseCase.execute(
             LoginUseCaseInput(loginObject.userName, loginObject.password)))
         .fold(
-            (failure) => {
+            (failure){
                   inputState.add(ErrorState(
-                      StateRendererType.POPUP_ERROR_STATE, failure.message))
+                      StateRendererType.POPUP_ERROR_STATE, failure.message));
+
+                  Future.delayed(Duration(seconds: 3), () {
+                    inputState.add(ContentState());
+                  });
                 }, (data) {
       inputState.add(ContentState());
       isUserLoggedInSuccessFullyStreamController
@@ -92,14 +98,23 @@ class LoginViewModel extends BaseViewModel
   setPassword(String password) {
     inputPassword.add(password);
     loginObject = loginObject.copyWith(password: password);
+    _validate();
   }
 
   @override
   setUserName(String userName) {
     inputUserName.add(userName);
     loginObject = loginObject.copyWith(userName: userName);
+    _validate();
   }
+
+  _validate(){
+    inputIsAllInputValid.add(null);
+  }
+
 }
+
+
 
 abstract class LoginViewModelInputs {
   setUserName(String userName);
