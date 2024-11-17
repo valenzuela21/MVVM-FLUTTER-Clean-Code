@@ -1,11 +1,14 @@
 import 'package:approducts/app/di.dart';
 import 'package:approducts/presentation/login/login.dart';
+import 'package:approducts/presentation/products/products.dart';
 import 'package:approducts/presentation/resources/strings_manager.dart';
+import 'package:approducts/presentation/splash/splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 
 class Routes {
+  static const String splash = "/";
   static const String loginRoute = "/login";
   static const String productsRoute = "/productsRouter";
   static const String detailProductRoute = "/detailProduct";
@@ -14,11 +17,13 @@ class Routes {
 class RouterGenerator {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
+      case Routes.splash:
+        return MaterialPageRoute(builder: (_) => SplashView());
       case Routes.loginRoute:
         initLoginModule();
         return MaterialPageRoute(builder: (_) => LoginView());
       case Routes.productsRoute:
-        return MaterialPageRoute(builder: (_) => Text("Hola"));
+        return MaterialPageRoute(builder: (_) => ProductsView());
       default:
         return unDefinedRoute();
     }

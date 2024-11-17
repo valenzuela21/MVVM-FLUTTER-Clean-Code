@@ -28,5 +28,6 @@
   "text_password": "Contraseña",
   "text_email": "Correo Electrónico",
   "user_name_error": "Error en el campo usuario",
-  "password_error": "Error en el campo contraseña"
+  "password_error": "Error en el campo contraseña",
+  "text_start_init": "Pruebas de Ingreso"
 }

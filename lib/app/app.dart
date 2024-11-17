@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp>{
       locale: context.locale,
       debugShowCheckedModeBanner: false,
       onGenerateRoute: RouterGenerator.getRoute,
-      initialRoute: Routes.loginRoute,
+      initialRoute: Routes.splash,
       theme: getApplicationTheme(),
     );
   }

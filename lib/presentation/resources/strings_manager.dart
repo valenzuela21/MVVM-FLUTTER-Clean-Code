@@ -26,4 +26,7 @@ class AppStrings {
   static const String noInternetError = "no_internet_error";
   static const String unknown = "unknown";
   static const String badcerticate = "badcerticate";
+  static const String testStartInit = "text_start_init";
+  static const String searchHint = "search_hint";
+  static const String searchLabel = "search_label";
 }

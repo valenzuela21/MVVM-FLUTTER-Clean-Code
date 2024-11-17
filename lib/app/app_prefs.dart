@@ -6,6 +6,7 @@ import '../presentation/resources/language_manager.dart';
 
 const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
 const String PREFS_KEY_TOKEN = "PREFS_KEY_TOKEN";
+const String PREFS_KEY_IS_USER_LOGGEN_IN = "PREFS_KEY_IS_USER_LOGGEN_IN";
 
 class AppPreferences {
   SharedPreferences _sharedPreferences;
@@ -41,6 +42,14 @@ class AppPreferences {
 
   Future<String> getUserToken() async {
     return _sharedPreferences.getString(PREFS_KEY_TOKEN) ?? "";
+  }
+
+  Future<void> setIsUserLoogedIn() async {
+     _sharedPreferences.setBool(PREFS_KEY_IS_USER_LOGGEN_IN, true);
+  }
+
+  Future<bool> getIsUserLoogedIn() async {
+   return _sharedPreferences.getBool(PREFS_KEY_IS_USER_LOGGEN_IN) ?? false;
   }
 
   Future<Locale> getLocal() async {

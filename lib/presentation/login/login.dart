@@ -39,6 +39,7 @@ class _LoginState extends State<LoginView> {
 
       SchedulerBinding.instance.addPostFrameCallback((_) {
         _appPreferences.setUserToken(token);
+        _appPreferences.setIsUserLoogedIn();
         resetModules();
         Navigator.of(context).pushReplacementNamed(Routes.productsRoute);
       });

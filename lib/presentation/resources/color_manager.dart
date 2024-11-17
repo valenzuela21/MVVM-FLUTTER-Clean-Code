@@ -8,6 +8,9 @@ class ColorManager {
   static Color error = HexColor.fromHex("#e61f34");
   static Color gray = HexColor.fromHex("#595959");
   static Color black= HexColor.fromHex("#000000");
+  static Color purpleBlack = HexColor.fromHex("#1A1A3F");
+  static Color orangeLight = HexColor.fromHex("#EA3799");
+  static Color grayLight = HexColor.fromHex("#D8DAE8");
 }
 
 extension HexColor on Color {

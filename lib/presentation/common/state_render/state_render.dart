@@ -49,8 +49,8 @@ class StateRenderer extends StatelessWidget {
         return _getPopUpDialog(
             context, [
           LoadingAnimationWidget.twistingDots(
-            leftDotColor: const Color(0xFF1A1A3F),
-            rightDotColor: const Color(0xFFEA3799),
+            leftDotColor: ColorManager.purpleBlack,
+            rightDotColor: ColorManager.orangeLight,
             size: AppSize.s65,
           ),
         ]);
