@@ -1,3 +1,4 @@
+import 'package:approducts/presentation/common/components/start_rating.dart';
 import 'package:approducts/presentation/resources/assets_manager.dart';
 import 'package:approducts/presentation/resources/color_manager.dart';
 import 'package:approducts/presentation/resources/routes_manager.dart';
@@ -55,8 +56,7 @@ class _ProductsState extends State<ProductsView> {
                 ),
                 style: TextStyle(
                   fontSize: AppSize.s20,
-                  // Tamaño de la fuente cuando el usuario escribe
-                  color: Colors.black, // Color del texto escrito
+                  color: Colors.black,
                 ),
               ),
               SizedBox(height: AppSize.s20),
@@ -151,35 +151,8 @@ class _HeaderCard extends StatelessWidget {
             )),
         Flexible(
             flex: 1,
-            child: Container(
-              width: 90,
-              decoration: BoxDecoration(
-                color: ColorManager.primary,
-                // Color de fondo del contenedor
-                borderRadius:
-                    BorderRadius.circular(AppSize
-                        .s8), // Aquí aplicamos el borde redondeado
-              ),
-              child: Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    ImageAssets.start,
-                    width: AppSize.s20,
-                    height: AppSize.s20,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    "4.43",
-                    style: getRegularStyle(
-                        color: ColorManager.white,
-                        fontSize: AppSize.s18),
-                  )
-                ],
-              ),
-            )),
-      ],
+            child: StartRatingComponent(),
+        )],
     );
   }
 }

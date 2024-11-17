@@ -30,4 +30,5 @@ class AppStrings {
   static const String searchHint = "search_hint";
   static const String searchLabel = "search_label";
   static const String viewDetails = "view_detail";
+  static const String viewDetailProduct = "detail_product";
 }

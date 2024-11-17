@@ -1,4 +1,6 @@
 import 'package:approducts/presentation/resources/color_manager.dart';
+import 'package:approducts/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/routes_manager.dart';
@@ -16,14 +18,14 @@ class _DetailsProductViewState extends State<DetailsProductView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.grayLight,
       appBar: AppBar(
         backgroundColor: ColorManager.primary,
-        title: Text("Detalle del Producto",
+        title: Text(AppStrings.viewDetailProduct,
             style: getMediumStyle(
-                color: ColorManager.white, fontSize: AppSize.s20)),
+                color: ColorManager.white, fontSize: AppSize.s20)).tr(),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: ColorManager.white),
-          // Icono de flecha para volver
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(Routes.productsRoute);
           },
@@ -31,7 +33,14 @@ class _DetailsProductViewState extends State<DetailsProductView> {
       ),
       body: SafeArea(
           child: Column(
-        children: [Text("Working")],
+        children: [
+          Row(
+            children: [
+              Text("Iphone X", style: getMediumStyle(color: ColorManager.primary, fontSize: AppSize.s28))
+
+            ],
+          )
+        ],
       )),
     );
   }
