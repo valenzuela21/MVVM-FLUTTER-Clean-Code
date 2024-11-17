@@ -37,7 +37,7 @@ class RepositoryImpl extends Repository {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.products(productsRequest);
-        return Right(response);
+        return Right(response.toDomain());
       } catch (error) {
         return (Left(ErrorHandler.handle(error).failure));
       }

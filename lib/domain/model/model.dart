@@ -1,3 +1,5 @@
+import 'package:approducts/data/responses/products.reponse.dart';
+
 class UserInfo {
   String? email;
   String? fullname;
@@ -26,7 +28,7 @@ class Products {
   int? size;
   int? pages;
 
-  Products({int? total, int? page, int? size, int? pages});
+  Products(this.items, this.total, this.page, this.size, this.pages);
 
 }
 
@@ -41,7 +43,7 @@ class ProductItem {
   DateTime? createdOn;
   DateTime? updatedOn;
 
-  ProductItem({
+  ProductItem(
     this.id,
     this.name,
     this.description,
@@ -51,8 +53,9 @@ class ProductItem {
     this.category,
     this.createdOn,
     this.updatedOn,
-  });
+  );
 }
+
 
 
 class Brand {

@@ -1,4 +1,3 @@
-import 'package:approducts/data/responses/product.responses.dart';
 import 'package:approducts/data/responses/products.reponse.dart';
 import 'package:approducts/data/responses/responses.dart';
 import 'package:approducts/domain/model/model.dart' as domain;
@@ -17,29 +16,24 @@ extension AuthenticationResponseMapper on AuthenticationResponse {
   }
 }
 
-
 extension ProductsResponseMapper on ProductListResponse {
   domain.Products toDomain() {
     return domain.Products(
-      items: this.items?.map((item) => ProductItem(
-        id: item.id,
-        name: item.name,
-        description: item.description,
-        price: item.price,
-        rating: item.rating,
-        brand: item.brand != null
-            ? Brand(item.brand?.id, item.brand?.name)
-            : null,
-        category: item.category != null
-            ? Category(item.category?.id, item.category?.name)
-            : null,
-        createdOn: item.createdOn,
-        updatedOn: item.updatedOn,
-      )).toList() ?? [],
-      total: this.total,
-      page: this.page,
-      size: this.size,
-      pages: this.pages,
+      this.items?.map((item) => domain.ProductItem(
+        item.id,
+        item.name,
+        item.description,
+        item.price,
+        item.rating,
+        domain.Brand(item.id, item.name),
+        domain.Category(item.id, item.name),
+        item.createdOn,
+        item.updatedOn
+      )).toList(),
+      this.total,
+      this.page,
+      this.size,
+      this.pages,
     );
   }
 }
