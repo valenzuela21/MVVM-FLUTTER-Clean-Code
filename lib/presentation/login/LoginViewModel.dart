@@ -56,9 +56,7 @@ class LoginViewModel extends BaseViewModel
                   inputState.add(ErrorState(
                       StateRendererType.POPUP_LOADING_STATE, failure.message))
                 }, (data) {
-              print(data);
-      inputState.add(ContentState());
-      isUserLoggedInSuccessFullyStreamController.add("sada");
+      isUserLoggedInSuccessFullyStreamController.add(data.accessToken?.accessToken);
     });
   }
 

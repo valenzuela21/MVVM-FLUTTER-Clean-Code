@@ -1,12 +1,15 @@
+import 'package:approducts/app/app_prefs.dart';
 import 'package:approducts/app/di.dart';
 import 'package:approducts/presentation/common/forms/input_decoration.dart';
 import 'package:approducts/presentation/login/LoginViewModel.dart';
 import 'package:approducts/presentation/resources/color_manager.dart';
+import 'package:approducts/presentation/resources/routes_manager.dart';
 import 'package:approducts/presentation/resources/strings_manager.dart';
 import 'package:approducts/presentation/resources/style_manager.dart';
 import 'package:approducts/presentation/resources/values_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -17,7 +20,8 @@ class LoginView extends StatefulWidget {
 
 class _LoginState extends State<LoginView> {
 
-  LoginViewModel _viewModel = instance<LoginViewModel>();
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -30,6 +34,13 @@ class _LoginState extends State<LoginView> {
         .addListener(() => _viewModel.setUserName(_userNameController.text));
     _passwordController
         .addListener(() => _viewModel.setPassword(_passwordController.text));
+    _viewModel.isUserLoggedInSuccessFullyStreamController.stream.listen((token) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _appPreferences.setUserToken(token);
+        resetModules();
+        Navigator.of(context).pushReplacementNamed(Routes.productsRoute);
+      });
+    });
   }
 
   @override

@@ -17,6 +17,8 @@ class RouterGenerator {
       case Routes.loginRoute:
         initLoginModule();
         return MaterialPageRoute(builder: (_) => LoginView());
+      case Routes.productsRoute:
+        return MaterialPageRoute(builder: (_) => Text("Hola"));
       default:
         return unDefinedRoute();
     }
