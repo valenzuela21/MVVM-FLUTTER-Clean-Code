@@ -24,6 +24,7 @@ class RouterGenerator {
         initLoginModule();
         return MaterialPageRoute(builder: (_) => LoginView());
       case Routes.productsRoute:
+        initProductsModule();
         return MaterialPageRoute(builder: (_) => ProductsView());
       case Routes.detailProductRoute:
         return MaterialPageRoute(builder: (_) => DetailsProductView());

@@ -7,7 +7,9 @@ import 'package:approducts/data/network/network_info.dart';
 import 'package:approducts/data/repository/repository_impl.dart';
 import 'package:approducts/domain/repository/repository.dart';
 import 'package:approducts/domain/usecase/login_usecase.dart';
+import 'package:approducts/domain/usecase/products_usecase.dart';
 import 'package:approducts/presentation/login/LoginViewModel.dart';
+import 'package:approducts/presentation/products/ProductsViewmodel.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,6 +51,13 @@ initLoginModule(){
   if(!GetIt.I.isRegistered<LoginUseCase>()){
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
     instance.registerFactory<LoginViewModel>(() =>  LoginViewModel(instance()));
+  }
+}
+
+initProductsModule(){
+  if(!GetIt.I.isRegistered<ProductsUsecase>()){
+    instance.registerFactory<ProductsUsecase>(() => ProductsUsecase(instance()));
+    instance.registerFactory<ProductsViewModel>(() =>  ProductsViewModel(instance()));
   }
 }
 

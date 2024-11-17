@@ -8,6 +8,7 @@ import 'package:approducts/presentation/resources/values_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../app/DI.dart';
 import '../common/state_render/state_render_impl.dart';
 import '../resources/style_manager.dart';
 
@@ -19,8 +20,7 @@ class ProductsView extends StatefulWidget {
 }
 
 class _ProductsState extends State<ProductsView> {
-  final ProductsViewModel _viewModel = ProductsViewModel();
-
+  final ProductsViewModel _viewModel = instance<ProductsViewModel>();
   final TextEditingController _searchController = TextEditingController();
 
   _bind() {
