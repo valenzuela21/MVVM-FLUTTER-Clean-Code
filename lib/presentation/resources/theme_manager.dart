@@ -7,6 +7,26 @@ import 'color_manager.dart';
 ThemeData getApplicationTheme() {
   return ThemeData(
     primaryColor: ColorManager.primary,
+
+    cardTheme: CardTheme(
+      color: ColorManager.white,
+      shadowColor: ColorManager.gray,
+      elevation: AppSize.s1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(
+          color: ColorManager.primary,
+          width: AppSize.s2,
+        ),
+      ),
+    ),
+
+    textTheme: TextTheme(
+      displayMedium: getMediumStyle(color: ColorManager.black),
+      bodyMedium: getMediumStyle(color: ColorManager.gray),
+      titleMedium: getMediumStyle(color: ColorManager.white)
+    ),
+    
     buttonTheme: ButtonThemeData(
         shape: StadiumBorder(),
         disabledColor: ColorManager.white,
@@ -18,6 +38,8 @@ ThemeData getApplicationTheme() {
       labelStyle: getMediumStyle(color: ColorManager.gray),
       errorStyle: getRegularStyle(color: ColorManager.error),
     ),
+
+
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
