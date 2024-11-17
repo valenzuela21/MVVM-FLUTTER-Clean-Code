@@ -137,6 +137,7 @@ extension FlowStateExtension on FlowState {
         {
           if (getStateRendererType() == StateRendererType.CONFIRM_DATABASE) {
             if(int.parse(getMessage()) <= 0){
+              dismissDialog(context);
               showPopUp(context, getStateRendererType(), getMessage());
             }
           }
