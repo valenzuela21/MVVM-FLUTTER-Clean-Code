@@ -4,7 +4,7 @@ import 'package:approducts/presentation/base/baseviewmodel.dart';
 import '../common/state_render/state_render.dart';
 import '../common/state_render/state_render_impl.dart';
 
-class ProductsViewModel extends BaseViewModel {
+class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs {
 
   final LocalRepositoryDatabase _productRepository = LocalRepositoryDatabase();
 
@@ -27,9 +27,35 @@ class ProductsViewModel extends BaseViewModel {
   }
 
   @override
+  Future<void> getBranch() {
+    // TODO: implement getBranch
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> getCategory() {
+    // TODO: implement getCategory
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> getProducts() {
+    // TODO: implement getProducts
+    throw UnimplementedError();
+  }
+
+  @override
   void dispose() {
     super.dispose();
   }
 
+}
+
+abstract class ProductsViewModelInputs {
+  Future<void> getProducts();
+
+  Future<void> getBranch();
+
+  Future<void> getCategory();
 }
 
