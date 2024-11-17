@@ -29,4 +29,5 @@ class AppStrings {
   static const String testStartInit = "text_start_init";
   static const String searchHint = "search_hint";
   static const String searchLabel = "search_label";
+  static const String viewDetails = "view_detail";
 }

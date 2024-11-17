@@ -31,5 +31,6 @@
   "password_error": "Error en el campo contraseña",
   "text_start_init": "Pruebas de Ingreso",
   "search_hint": "Buscar...",
-  "search_label": "Buscar Producto"
+  "search_label": "Buscar Producto",
+  "view_detail": "Ver Detalles"
 }

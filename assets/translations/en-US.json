@@ -31,6 +31,7 @@
   "password_error": "Error in password field",
   "text_start_init": "Admission Test",
   "search_hint": "Search...",
-  "search_label": "Product search"
+  "search_label": "Product search",
+  "view_detail": "View More"
 
 }

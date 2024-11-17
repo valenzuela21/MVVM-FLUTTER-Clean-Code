@@ -1,5 +1,6 @@
 import 'package:approducts/presentation/resources/assets_manager.dart';
 import 'package:approducts/presentation/resources/color_manager.dart';
+import 'package:approducts/presentation/resources/routes_manager.dart';
 import 'package:approducts/presentation/resources/strings_manager.dart';
 import 'package:approducts/presentation/resources/values_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -115,8 +116,10 @@ class _ContentCard extends StatelessWidget {
                   ),
                 ),
 
-                onPressed: () {},
-                child: Text("Ver Detalles"),
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed(Routes.detailProductRoute);
+                },
+                child: Text(AppStrings.viewDetails).tr(),
               ),
             ),
 

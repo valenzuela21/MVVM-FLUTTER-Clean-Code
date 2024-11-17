@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:approducts/app/DI.dart';
 import 'package:approducts/domain/usecase/login_usecase.dart';
 import 'package:approducts/presentation/base/baseviewmodel.dart';
 import 'package:approducts/presentation/common/freezed_data_classes.dart';

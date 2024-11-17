@@ -1,4 +1,5 @@
 import 'package:approducts/app/di.dart';
+import 'package:approducts/presentation/details_product/details_product.dart';
 import 'package:approducts/presentation/login/login.dart';
 import 'package:approducts/presentation/products/products.dart';
 import 'package:approducts/presentation/resources/strings_manager.dart';
@@ -24,6 +25,8 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (_) => LoginView());
       case Routes.productsRoute:
         return MaterialPageRoute(builder: (_) => ProductsView());
+      case Routes.detailProductRoute:
+        return MaterialPageRoute(builder: (_) => DetailsProductView());
       default:
         return unDefinedRoute();
     }
