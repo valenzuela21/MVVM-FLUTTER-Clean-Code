@@ -1,5 +1,6 @@
 import 'package:approducts/app/app_prefs.dart';
 import 'package:approducts/app/di.dart';
+import 'package:approducts/presentation/common/state_render/state_render_impl.dart';
 import 'package:approducts/presentation/common/forms/input_decoration.dart';
 import 'package:approducts/presentation/login/LoginViewModel.dart';
 import 'package:approducts/presentation/resources/color_manager.dart';
@@ -19,7 +20,6 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginView> {
-
   final LoginViewModel _viewModel = instance<LoginViewModel>();
   final AppPreferences _appPreferences = instance<AppPreferences>();
 
@@ -34,7 +34,8 @@ class _LoginState extends State<LoginView> {
         .addListener(() => _viewModel.setUserName(_userNameController.text));
     _passwordController
         .addListener(() => _viewModel.setPassword(_passwordController.text));
-    _viewModel.isUserLoggedInSuccessFullyStreamController.stream.listen((token) {
+    _viewModel.isUserLoggedInSuccessFullyStreamController.stream
+        .listen((token) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         _appPreferences.setUserToken(token);
         resetModules();
@@ -56,7 +57,11 @@ class _LoginState extends State<LoginView> {
         body: StreamBuilder(
             stream: _viewModel.outputState,
             builder: (context, snapshot) {
-              return _getContentWidget();
+              return snapshot.data
+                      ?.getScreenWidget(context, _getContentWidget(), () {
+                    _viewModel.login();
+                  }) ??
+                  _getContentWidget();
             }));
   }
 
@@ -123,7 +128,7 @@ class _LoginState extends State<LoginView> {
                   ),
                   SizedBox(height: AppSize.s20),
                   ElevatedButton(
-                      onPressed: (){
+                      onPressed: () {
                         _viewModel.login();
                       },
                       child: Text(AppStrings.start_session).tr())

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:approducts/app/DI.dart';
 import 'package:approducts/domain/usecase/login_usecase.dart';
 import 'package:approducts/presentation/base/baseviewmodel.dart';
 import 'package:approducts/presentation/common/freezed_data_classes.dart';
@@ -38,7 +39,7 @@ class LoginViewModel extends BaseViewModel
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _userNameStreamController.close();
     _passwordStreamController.close();
     _isAllInputsValidStreamController.close();
@@ -54,32 +55,37 @@ class LoginViewModel extends BaseViewModel
         .fold(
             (failure) => {
                   inputState.add(ErrorState(
-                      StateRendererType.POPUP_LOADING_STATE, failure.message))
+                      StateRendererType.POPUP_ERROR_STATE, failure.message))
                 }, (data) {
-      isUserLoggedInSuccessFullyStreamController.add(data.accessToken?.accessToken);
+      inputState.add(ContentState());
+      isUserLoggedInSuccessFullyStreamController
+          .add(data.accessToken?.accessToken);
     });
   }
 
   @override
-  Stream<bool> get outputIsAllInputsValid => _isAllInputsValidStreamController.stream.map((_) => _isAllInputsValid() );
+  Stream<bool> get outputIsAllInputsValid =>
+      _isAllInputsValidStreamController.stream.map((_) => _isAllInputsValid());
 
   @override
-  Stream<bool> get outputIsUserNameValid => _userNameStreamController.stream.map((userName) => _isUserNameValid(userName));
-
+  Stream<bool> get outputIsUserNameValid => _userNameStreamController.stream
+      .map((userName) => _isUserNameValid(userName));
 
   @override
-  Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream.map((password) => _isPasswordValid(password));
+  Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
+      .map((password) => _isPasswordValid(password));
 
-  bool _isUserNameValid(String userName){
+  bool _isUserNameValid(String userName) {
     return userName.isNotEmpty;
   }
 
-  bool _isPasswordValid(String password){
+  bool _isPasswordValid(String password) {
     return password.isNotEmpty;
   }
 
   bool _isAllInputsValid() {
-    return _isUserNameValid(loginObject.userName) && _isPasswordValid(loginObject.password);
+    return _isUserNameValid(loginObject.userName) &&
+        _isPasswordValid(loginObject.password);
   }
 
   @override

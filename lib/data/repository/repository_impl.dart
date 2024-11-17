@@ -19,7 +19,11 @@ class RepositoryImpl extends Repository {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.login(loginRequest);
-        return Right(response.toDomain());
+        if(response.accessToken?.accessToken != null){
+          return Right(response.toDomain());
+        }else{
+          return Left(Failure(402,"Error en el login de ingreso"));
+        }
       } catch (error) {
         return (Left(ErrorHandler.handle(error).failure));
       }
