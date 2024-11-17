@@ -29,6 +29,8 @@
   "text_email": "Email",
   "user_name_error": "Error in user field",
   "password_error": "Error in password field",
-  "text_start_init": "Admission Test"
+  "text_start_init": "Admission Test",
+  "search_hint": "Search...",
+  "search_label": "Product search"
 
 }

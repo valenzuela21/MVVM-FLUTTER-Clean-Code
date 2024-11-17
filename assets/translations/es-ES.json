@@ -29,5 +29,7 @@
   "text_email": "Correo Electrónico",
   "user_name_error": "Error en el campo usuario",
   "password_error": "Error en el campo contraseña",
-  "text_start_init": "Pruebas de Ingreso"
+  "text_start_init": "Pruebas de Ingreso",
+  "search_hint": "Buscar...",
+  "search_label": "Buscar Producto"
 }

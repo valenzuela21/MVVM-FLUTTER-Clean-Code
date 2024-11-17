@@ -36,8 +36,8 @@ class _ProductsState extends State<ProductsView> {
                 keyboardType: TextInputType.text,
                 controller: _searchController,
                 decoration: InputDecoration(
-                  hintText: AppStrings.searchHint,
-                  labelText: AppStrings.searchLabel,
+                  hintText: AppStrings.searchHint.tr(),
+                  labelText: AppStrings.searchLabel.tr(),
                   hintStyle: TextStyle(
                     fontSize: AppSize.s20,
                     color: ColorManager.black,
