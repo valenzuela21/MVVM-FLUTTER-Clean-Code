@@ -35,29 +35,36 @@ class _DetailsProductViewState extends State<DetailsProductView> {
         ),
       ),
       body: SafeArea(
-          child: Column(
-        children: [
-          Row(
+          child: Padding(padding: EdgeInsets.all(AppSize.s18), child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(
-                flex: 1,
-                child: Text("Iphone X",
-                    style: getMediumStyle(
-                        color: ColorManager.primary, fontSize: AppSize.s28)),
+              Row(
+                children: [
+                  Flexible(
+                    flex: 3,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Text("Iphone X",
+                          style: getBoldStyle(
+                              color: ColorManager.primary, fontSize: AppSize.s40)),
+                    ),
+                  ),
+                  Flexible(flex: 1, child: StartRatingComponent())
+                ],
               ),
-              Flexible(flex: 2, child: StartRatingComponent())
+              SizedBox(height: 20),
+              Text("Descripción",
+                  style: getMediumStyle(
+                      color: ColorManager.primary, fontSize: AppSize.s28)),
+              Text(
+                  "Esta es una descripción del producto de apple que es muy lindo.",
+                  style: getRegularStyle(
+                      color: ColorManager.primary, fontSize: AppSize.s18)),
+              SizedBox(height: 20),
+              _ListPrices()
             ],
-          ),
-          Text("Descripción",
-              style: getMediumStyle(
-                  color: ColorManager.primary, fontSize: AppSize.s28)),
-          Text(
-              "Esta es una descripción del producto de apple que es muy lindo.",
-              style: getRegularStyle(
-                  color: ColorManager.primary, fontSize: AppSize.s18)),
-          _ListPrices()
-        ],
-      )),
+          ))),
     );
   }
 }
@@ -80,12 +87,14 @@ class _ListPrices extends StatelessWidget {
             Text("Apple", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18))
           ],
         ),
+        SizedBox(height: 10),
         Row(
           children: [
             Text("Precio: ", style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)),
             Text("\$ 899", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18))
           ],
         ),
+        SizedBox(height: 10),
         Row(
           children: [
             Text("Categoria: ", style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)),

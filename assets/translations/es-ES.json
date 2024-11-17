@@ -33,5 +33,6 @@
   "search_hint": "Buscar...",
   "search_label": "Buscar Producto",
   "view_detail": "Ver Detalles",
-  "view_detail_product": "Detalle del producto"
+
+  "detail_product": "Detalle del producto"
 }
