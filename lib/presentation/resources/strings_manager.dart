@@ -31,4 +31,8 @@ class AppStrings {
   static const String searchLabel = "search_label";
   static const String viewDetails = "view_detail";
   static const String viewDetailProduct = "detail_product";
+  static const String description = "description";
+  static const String text_branch = "text_branch";
+  static const String text_price = "text_price";
+  static const String text_category = "text_category";
 }

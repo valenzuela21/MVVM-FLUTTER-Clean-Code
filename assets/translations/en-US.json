@@ -33,6 +33,9 @@
   "search_hint": "Search...",
   "search_label": "Product search",
   "view_detail": "View More",
-  "detail_product": "Detail product"
-
+  "description": "Description",
+  "detail_product": "Detail product",
+  "text_branch": "Branch: ",
+  "text_price": "Price: ",
+  "text_category": "Category: "
 }

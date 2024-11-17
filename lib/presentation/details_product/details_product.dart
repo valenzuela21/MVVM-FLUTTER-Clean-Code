@@ -54,9 +54,9 @@ class _DetailsProductViewState extends State<DetailsProductView> {
                 ],
               ),
               SizedBox(height: 20),
-              Text("Descripción",
+              Text(AppStrings.description,
                   style: getMediumStyle(
-                      color: ColorManager.primary, fontSize: AppSize.s28)),
+                      color: ColorManager.primary, fontSize: AppSize.s28)).tr(),
               Text(
                   "Esta es una descripción del producto de apple que es muy lindo.",
                   style: getRegularStyle(
@@ -78,7 +78,7 @@ class _ListPrices extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text("Marca: ", style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)),
+            Text(AppStrings.text_branch, style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)).tr(),
             Image.asset(
               ImageAssets.clip,
               width: AppSize.s28,
@@ -90,15 +90,15 @@ class _ListPrices extends StatelessWidget {
         SizedBox(height: 10),
         Row(
           children: [
-            Text("Precio: ", style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)),
+            Text(AppStrings.text_price, style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)).tr(),
             Text("\$ 899", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18))
           ],
         ),
         SizedBox(height: 10),
         Row(
           children: [
-            Text("Categoria: ", style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)),
-            Text("SmartPhone", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18))
+            Text(AppStrings.text_category, style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)),
+            Text("SmartPhone", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18)).tr()
           ],
         )
       ],
