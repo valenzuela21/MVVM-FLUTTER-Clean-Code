@@ -1,3 +1,4 @@
+import 'package:approducts/data/responses/products.reponse.dart';
 import 'package:approducts/data/responses/responses.dart';
 import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
@@ -15,6 +16,14 @@ abstract class AppServiceClient {
     @Field("username") String username,
     @Field("password") String password,
   );
+
+  @GET('/products/list')
+  Future<ProductListResponse> getProducts(
+      @Query('page') int page,
+      @Query('size') int size,
+      );
+
+
 }
 
 class ParseErrorLogger {

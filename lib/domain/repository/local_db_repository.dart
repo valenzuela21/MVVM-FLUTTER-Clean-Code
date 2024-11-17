@@ -3,7 +3,6 @@ import '../../data/data_resource/local_data_sqlift.dart';
 
 class LocalRepositoryDatabase {
 
-
   Future<int> insertBrand(Map<String, dynamic> brand) async {
     final db = await DatabaseHelper.instance.database;
     return await db.insert('brand', brand);

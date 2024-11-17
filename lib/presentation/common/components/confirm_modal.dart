@@ -2,13 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:approducts/presentation/resources/assets_manager.dart';
 
+import '../../../domain/repository/local_db_repository.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/style_manager.dart';
 import '../../resources/values_manager.dart';
 
 class ConfirmModalComponent extends StatelessWidget {
-  const ConfirmModalComponent({super.key});
+  final LocalRepositoryDatabase _productRepository = LocalRepositoryDatabase();
+
+  ConfirmModalComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
