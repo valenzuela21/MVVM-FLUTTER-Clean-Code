@@ -26,5 +26,7 @@
   "badcerticate": "Bad Certificate",
   "start_session": "Start Session",
   "text_password": "Password",
-  "text_email": "Email"
+  "text_email": "Email",
+  "user_name_error": "Error in user field",
+  "password_error": "Error in password field"
 }

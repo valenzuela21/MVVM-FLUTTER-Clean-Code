@@ -25,14 +25,14 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<AuthenticationResponse> login(
-    String email,
+    String username,
     String password,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {
-      'email': email,
+      'username': username,
       'password': password,
     };
     final _options = _setStreamType<AuthenticationResponse>(Options(
@@ -42,7 +42,7 @@ class _AppServiceClient implements AppServiceClient {
     )
         .compose(
           _dio.options,
-          '/login',
+          '/auth/login',
           queryParameters: queryParameters,
           data: _data,
         )

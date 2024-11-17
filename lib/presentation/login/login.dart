@@ -16,15 +16,20 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginView> {
+
   LoginViewModel _viewModel = instance<LoginViewModel>();
 
-  TextEditingController _userNameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   _bind() {
     _viewModel.start();
+    _userNameController
+        .addListener(() => _viewModel.setUserName(_userNameController.text));
+    _passwordController
+        .addListener(() => _viewModel.setPassword(_passwordController.text));
   }
 
   @override
@@ -67,38 +72,50 @@ class _LoginState extends State<LoginView> {
                         width: AppSize.s300,
                         child: Column(
                           children: [
-                            TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              controller: _userNameController,
-                              decoration: InputDecorations.inputTheme(
-                                  hintText: AppStrings.text_email.tr(),
-                                  prefixIcon: Icons.email,
-                                  borderColor: ColorManager.gray,
-                                  borderTop: true),
-                            ),
-                            TextFormField(
-                              keyboardType: TextInputType.text,
-                              obscureText: true,
-                              controller: _passwordController,
-                              decoration: InputDecorations.inputTheme(
-                                hintText: AppStrings.text_password.tr(),
-                                prefixIcon: Icons.lock_clock_sharp,
-                                borderColor: ColorManager.gray,
-                                borderTop: false,
-                              ),
-                            ),
+                            StreamBuilder(
+                                stream: _viewModel.outputIsUserNameValid,
+                                builder: (context, snapshot) {
+                                  return TextFormField(
+                                    keyboardType: TextInputType.emailAddress,
+                                    controller: _userNameController,
+                                    decoration: InputDecorations.inputTheme(
+                                        hintText: AppStrings.text_email.tr(),
+                                        prefixIcon: Icons.email,
+                                        borderColor: ColorManager.gray,
+                                        borderTop: true,
+                                        errorText: (snapshot.data ?? true)
+                                            ? null
+                                            : AppStrings.usernameError.tr()),
+                                  );
+                                }),
+                            StreamBuilder(
+                                stream: _viewModel.outputIsPasswordValid,
+                                builder: (context, snapshot) {
+                                  return TextFormField(
+                                    keyboardType: TextInputType.text,
+                                    obscureText: true,
+                                    controller: _passwordController,
+                                    decoration: InputDecorations.inputTheme(
+                                        hintText: AppStrings.text_password.tr(),
+                                        prefixIcon: Icons.lock_clock_sharp,
+                                        borderColor: ColorManager.gray,
+                                        borderTop: false,
+                                        errorText: (snapshot.data ?? true)
+                                            ? null
+                                            : AppStrings.passwordError.tr()),
+                                  );
+                                })
                           ],
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: AppSize.s20),
-                  Padding(
-                    padding: EdgeInsets.all(AppSize.s1_5),
-                    child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(AppStrings.start_session).tr()),
-                  )
+                  ElevatedButton(
+                      onPressed: (){
+                        _viewModel.login();
+                      },
+                      child: Text(AppStrings.start_session).tr())
                 ],
               ))),
     );

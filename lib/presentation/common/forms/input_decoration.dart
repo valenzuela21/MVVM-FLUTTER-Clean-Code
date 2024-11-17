@@ -1,10 +1,5 @@
-import 'dart:ffi';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
 import '../../resources/color_manager.dart';
-import '../../resources/strings_manager.dart';
 
 class InputDecorations {
   static InputDecoration inputTheme({

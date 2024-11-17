@@ -10,9 +10,9 @@ abstract class AppServiceClient {
   factory AppServiceClient(Dio dio,
       {String baseUrl, ParseErrorLogger? errorLogger}) = _AppServiceClient;
 
-  @POST('/login')
+  @POST('/auth/login')
   Future<AuthenticationResponse> login(
-    @Field("email") String email,
+    @Field("username") String username,
     @Field("password") String password,
   );
 }

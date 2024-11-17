@@ -8,6 +8,8 @@ class AppStrings {
   static const String start_session = "start_session";
   static const String text_password = "text_password";
   static const String text_email = "text_email";
+  static const String usernameError = "user_name_error";
+  static const String passwordError = "password_error";
 
   // error handler
   static const String badRequestError = "bad_request_error";
