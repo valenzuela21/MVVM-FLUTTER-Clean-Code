@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:approducts/data/mapper/mapper.dart';
 import 'package:approducts/presentation/common/state_render/state_render.dart';
 
+import '../../products/ProductsViewmodel.dart';
+
 abstract class FlowState {
   StateRendererType getStateRendererType();
 
@@ -41,7 +43,6 @@ class ErrorState extends FlowState {
 // CONTENT STATE
 
 class ContentState extends FlowState {
-
   ContentState();
 
   @override
@@ -51,6 +52,21 @@ class ContentState extends FlowState {
   StateRendererType getStateRendererType() =>
       StateRendererType.CONTENT_SCREEN_STATE;
 }
+
+
+class ProductCountState extends FlowState {
+  final String message;
+
+  ProductCountState({required this.message});
+
+  @override
+  String getMessage() => message;
+
+  @override
+  StateRendererType getStateRendererType() =>
+      StateRendererType.CONFIRM_DATABASE;
+}
+
 
 // EMPTY STATE
 
@@ -92,7 +108,7 @@ extension FlowStateExtension on FlowState {
             // return the content ui of the screen
             return contentScreenWidget;
           } else // StateRendererType.FULL_SCREEN_LOADING_STATE
-              {
+          {
             return StateRenderer(
                 stateRendererType: getStateRendererType(),
                 message: getMessage(),
@@ -103,12 +119,9 @@ extension FlowStateExtension on FlowState {
         {
           dismissDialog(context);
           if (getStateRendererType() == StateRendererType.POPUP_ERROR_STATE) {
-            // showing popup dialog
             showPopUp(context, getStateRendererType(), getMessage());
-            // return the content ui of the screen
             return contentScreenWidget;
-          } else // StateRendererType.FULL_SCREEN_ERROR_STATE
-              {
+          } else {
             return StateRenderer(
                 stateRendererType: getStateRendererType(),
                 message: getMessage(),
@@ -118,6 +131,15 @@ extension FlowStateExtension on FlowState {
       case ContentState:
         {
           dismissDialog(context);
+          return contentScreenWidget;
+        }
+      case ProductCountState:
+        {
+          if (getStateRendererType() == StateRendererType.CONFIRM_DATABASE) {
+            if(int.parse(getMessage()) <= 0){
+              showPopUp(context, getStateRendererType(), getMessage());
+            }
+          }
           return contentScreenWidget;
         }
       case EmptyState:
@@ -154,15 +176,16 @@ extension FlowStateExtension on FlowState {
   _isThereCurrentDialogShowing(BuildContext context) =>
       ModalRoute.of(context)?.isCurrent != true;
 
-  showPopUp(BuildContext context, StateRendererType stateRendererType,
-      String message,{String title = EMPTY}) {
+  showPopUp(
+      BuildContext context, StateRendererType stateRendererType, String message,
+      {String title = EMPTY}) {
     WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
         context: context,
         builder: (BuildContext context) => StateRenderer(
-          stateRendererType: stateRendererType,
-          message: message,
-          title: title,
-          retryActionFunction: () {},
-        )));
+              stateRendererType: stateRendererType,
+              message: message,
+              title: title,
+              retryActionFunction: () {},
+            )));
   }
 }

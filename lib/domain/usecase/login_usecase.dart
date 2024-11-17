@@ -13,7 +13,6 @@ class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication>{
   Future<Either<Failure, Authentication>> execute(LoginUseCaseInput input) async {
     return await _repository.login(LoginRequest(input.username, input.password));
   }
-
 }
 
 class LoginUseCaseInput {

@@ -37,5 +37,8 @@
   "detail_product": "Detail product",
   "text_branch": "Branch: ",
   "text_price": "Price: ",
-  "text_category": "Category: "
+  "text_category": "Category: ",
+  "not_never_data": "There is no data available on your device.",
+  "synchronize_now": "Synchronize Now",
+  "yuo_want_update": "You want to update it"
 }

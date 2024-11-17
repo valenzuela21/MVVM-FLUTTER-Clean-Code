@@ -10,6 +10,8 @@ class AppStrings {
   static const String text_email = "text_email";
   static const String usernameError = "user_name_error";
   static const String passwordError = "password_error";
+  static const String synchronize_now = "synchronize_now";
+  static const String yuo_want_update = "yuo_want_update";
 
   // error handler
   static const String badRequestError = "bad_request_error";
@@ -35,4 +37,5 @@ class AppStrings {
   static const String text_branch = "text_branch";
   static const String text_price = "text_price";
   static const String text_category = "text_category";
+  static const String not_never_data = "not_never_data";
 }

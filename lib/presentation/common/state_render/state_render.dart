@@ -1,4 +1,6 @@
 import 'package:approducts/data/mapper/mapper.dart';
+import 'package:approducts/presentation/common/components/confirm_modal.dart';
+import 'package:approducts/presentation/resources/assets_manager.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:approducts/presentation/resources/style_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -19,9 +21,9 @@ enum StateRendererType {
   CONTENT_SCREEN_STATE,
   EMPTY_SCREEN_STATE,
   FULL_SCREEN_LOADING_STATE,
-  FULL_SCREEN_ERROR_STATE
+  FULL_SCREEN_ERROR_STATE,
+  CONFIRM_DATABASE
 }
-
 
 class StateRenderer extends StatelessWidget {
   StateRendererType stateRendererType;
@@ -29,12 +31,13 @@ class StateRenderer extends StatelessWidget {
   String title;
   Function? retryActionFunction;
 
-  StateRenderer({Key? key,
-    required this.stateRendererType,
-    String? message,
-    String? title,
-    required this.retryActionFunction
-  }): message = message ?? AppStrings.loading.tr(),
+  StateRenderer(
+      {Key? key,
+      required this.stateRendererType,
+      String? message,
+      String? title,
+      required this.retryActionFunction})
+      : message = message ?? AppStrings.loading.tr(),
         title = title ?? EMPTY,
         super(key: key);
 
@@ -46,8 +49,7 @@ class StateRenderer extends StatelessWidget {
   Widget _getStateWidget(BuildContext context) {
     switch (stateRendererType) {
       case StateRendererType.POPUP_LOADING_STATE:
-        return _getPopUpDialog(
-            context, [
+        return _getPopUpDialog(context, [
           LoadingAnimationWidget.twistingDots(
             leftDotColor: ColorManager.purpleBlack,
             rightDotColor: ColorManager.orangeLight,
@@ -66,7 +68,7 @@ class StateRenderer extends StatelessWidget {
           _getRetryButton(AppStrings.ok.tr(), context)
         ]);
       case StateRendererType.FULL_SCREEN_LOADING_STATE:
-        return _getItemsInColumn([ _getMessage(message)]);
+        return _getItemsInColumn([_getMessage(message)]);
       case StateRendererType.FULL_SCREEN_ERROR_STATE:
         return _getItemsInColumn([
           _getMessage(message),
@@ -76,6 +78,10 @@ class StateRenderer extends StatelessWidget {
         return Container();
       case StateRendererType.EMPTY_SCREEN_STATE:
         return _getItemsInColumn([_getMessage(message)]);
+      case StateRendererType.CONFIRM_DATABASE:
+        return _getPopUpDialog(context, [
+         ConfirmModalComponent()
+        ]);
       default:
         return Container();
     }
@@ -112,7 +118,6 @@ class StateRenderer extends StatelessWidget {
     );
   }
 
-
   Widget _getMessage(String message) {
     return Center(
       child: Padding(
@@ -120,7 +125,7 @@ class StateRenderer extends StatelessWidget {
         child: Text(
           message,
           style:
-          getMediumStyle(color: ColorManager.black, fontSize: FontSize.s16),
+              getMediumStyle(color: ColorManager.black, fontSize: FontSize.s16),
         ),
       ),
     );
@@ -158,5 +163,4 @@ class StateRenderer extends StatelessWidget {
       ),
     );
   }
-
 }

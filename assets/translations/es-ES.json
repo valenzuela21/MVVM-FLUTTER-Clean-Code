@@ -37,5 +37,8 @@
   "detail_product": "Detalle del producto",
   "text_branch": "Marca: ",
   "text_price": "Precio: ",
-  "text_category": "Categoria: "
+  "text_category": "Categoria: ",
+  "not_never_data": "No hay datos disponibles en tu dispositivo.",
+  "synchronize_now": "Sicronizar Ahora",
+  "yuo_want_update": "Deseas actualizar o sincronizar los datos."
 }
