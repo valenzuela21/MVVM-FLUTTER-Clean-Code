@@ -15,7 +15,6 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
 
   Stream<List<Map<String, dynamic>>> get productsStream => _productsController.stream;
 
-
   ProductsUseCase _productsUsecase;
 
   ProductsViewModel(this._productsUsecase);
@@ -46,6 +45,16 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
 
 
   @override
+  Future<void> getSearchProducts(String name) async {
+      try{
+      List<Map<String, dynamic>> searchResult = await _productLocalRepository.searchProducts(name);
+      _productsController.sink.add(searchResult);
+      }catch(e){
+        _productsController.sink.addError("Error al cargar productos: $e");
+      }
+  }
+
+  @override
   void dispose() {
     _productsController.close();
     super.dispose();
@@ -55,6 +64,9 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
 
 abstract class ProductsViewModelInputs {
   Future<void> loadProducts();
+
+
+  Future<void> getSearchProducts(String name);
 }
 
 

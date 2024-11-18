@@ -4,10 +4,12 @@ import 'package:approducts/presentation/resources/strings_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../app/DI.dart';
 import '../resources/assets_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/style_manager.dart';
 import '../resources/values_manager.dart';
+import 'ProductViewModel.dart';
 
 class DetailsProductView extends StatefulWidget {
 
@@ -21,9 +23,12 @@ class DetailsProductView extends StatefulWidget {
 
 class _DetailsProductViewState extends State<DetailsProductView> {
 
+  final ProductViewModel _viewModel = instance<ProductViewModel>();
+
   @override
   void initState() {
-    print(widget.id);
+    final int productId = int.tryParse(widget.id.toString()) ?? 0;
+    _viewModel.getProductById(productId);
     super.initState();
   }
 

@@ -92,4 +92,5 @@ abstract class ConfirmModalViewModelInputs {
   Future<void> getBranch();
 
   Future<void> getCategory();
+
 }
