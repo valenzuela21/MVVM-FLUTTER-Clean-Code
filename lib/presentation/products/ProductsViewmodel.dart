@@ -6,14 +6,12 @@ import 'package:approducts/presentation/base/baseviewmodel.dart';
 import '../common/state_render/state_render.dart';
 import '../common/state_render/state_render_impl.dart';
 
-class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs {
+class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs, ProductsViewModelOutput {
 
   final LocalRepositoryDatabase _productLocalRepository = LocalRepositoryDatabase();
 
   final StreamController<List<Map<String, dynamic>>> _productsController =
   StreamController<List<Map<String, dynamic>>>.broadcast();
-
-  Stream<List<Map<String, dynamic>>> get productsStream => _productsController.stream;
 
   ProductsUseCase _productsUsecase;
 
@@ -60,13 +58,18 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
     super.dispose();
   }
 
+  Stream<List<Map<String, dynamic>>> get productsStream => _productsController.stream;
+
 }
 
 abstract class ProductsViewModelInputs {
   Future<void> loadProducts();
 
-
   Future<void> getSearchProducts(String name);
+}
+
+abstract class ProductsViewModelOutput {
+  Stream<List<Map<String, dynamic>>> get productsStream;
 }
 
 
