@@ -10,6 +10,7 @@ import 'package:approducts/presentation/resources/strings_manager.dart';
 import 'package:approducts/presentation/resources/values_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../app/DI.dart';
 import '../common/state_render/state_render_impl.dart';
@@ -85,7 +86,8 @@ class _ProductsState extends State<ProductsView> {
         child: Column(
       children: [
         Padding(
-            padding: EdgeInsets.symmetric(vertical:AppSize.s1 , horizontal: AppSize.s12),
+            padding: EdgeInsets.symmetric(
+                vertical: AppSize.s1, horizontal: AppSize.s12),
             child: TextFormField(
               keyboardType: TextInputType.text,
               controller: _searchController,
@@ -114,7 +116,13 @@ class _ProductsState extends State<ProductsView> {
                 stream: _viewModel.productsStream,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: LoadingAnimationWidget.twistingDots(
+                        leftDotColor: ColorManager.purpleBlack,
+                        rightDotColor: ColorManager.orangeLight,
+                        size: AppSize.s65,
+                      ),
+                    );
                   } else if (snapshot.hasError) {
                     return Center(
                         child: Text('Error Snapshot: ${snapshot.error}'));
