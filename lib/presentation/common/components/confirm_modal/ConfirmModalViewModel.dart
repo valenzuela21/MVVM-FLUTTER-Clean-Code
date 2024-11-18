@@ -19,8 +19,7 @@ class ConfirmModalViewModel extends BaseViewModel
   CategoryUseCase _categoryUseCase;
   BranchesUseCase _branchesUseCase;
 
-  ConfirmModalViewModel(
-      this._productsUseCase, this._categoryUseCase, this._branchesUseCase);
+  ConfirmModalViewModel(this._categoryUseCase, this._branchesUseCase, this._productsUseCase);
 
   @override
   void start() {
@@ -32,6 +31,7 @@ class ConfirmModalViewModel extends BaseViewModel
     try {
       await Future.wait([getProducts(), getBranch(), getCategory()]);
     } catch (e) {
+      inputState.add(ContentState());
       inputState
           .add(ErrorState(StateRendererType.POPUP_ERROR_STATE, e.toString()));
     }
@@ -53,7 +53,7 @@ class ConfirmModalViewModel extends BaseViewModel
 
   @override
   Future<void> getCategory() async {
-    (await _categoryUseCase.execute(null)).fold((failure) {
+    (await _categoryUseCase.execute(Void)).fold((failure) {
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
