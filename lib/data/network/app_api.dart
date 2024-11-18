@@ -1,3 +1,4 @@
+import 'package:approducts/data/responses/branches.response.dart';
 import 'package:approducts/data/responses/category.respose.dart';
 import 'package:approducts/data/responses/products.reponse.dart';
 import 'package:approducts/data/responses/responses.dart';
@@ -26,6 +27,9 @@ abstract class AppServiceClient {
 
   @GET('/categories/all')
   Future<CategoryResponse> getCategories();
+
+  @GET('/branches/all')
+  Future<BranchResponse> getBranches();
 
 }
 

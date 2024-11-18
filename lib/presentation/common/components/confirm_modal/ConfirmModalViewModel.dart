@@ -1,3 +1,5 @@
+import 'package:approducts/domain/usecase/category_usecase.dart';
+
 import '../../../../domain/usecase/products_usecase.dart';
 import '../../../base/baseviewmodel.dart';
 import '../../state_render/state_render.dart';
@@ -5,15 +7,16 @@ import '../../state_render/state_render_impl.dart';
 
 class ConfirmModalViewModel extends BaseViewModel
     implements ConfirmModalViewModelInputs {
-  ProductsUsecase _productsUsecase;
+  ProductsUsecase _productsUseCase;
+  CategoryUseCase _categoryUseCase;
 
-  ConfirmModalViewModel(this._productsUsecase);
+  ConfirmModalViewModel(this._productsUseCase, this._categoryUseCase);
 
   @override
   void start() {}
 
   @override
-  initTransferDatabaseLocal(){
+  initTransferDatabaseLocal() {
     getProducts();
     getBranch();
     getCategory();
@@ -21,26 +24,25 @@ class ConfirmModalViewModel extends BaseViewModel
 
   @override
   Future<void> getBranch() {
-    // TODO: implement getBranch
     throw UnimplementedError();
   }
 
   @override
-  Future<void> getCategory() {
-    // TODO: implement getCategory
-    throw UnimplementedError();
+  Future<void> getCategory() async {
+    (await _categoryUseCase.execute(0)).fold((failure) {
+      inputState.add(
+          ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
+    }, (data) {
+      print(data);
+    });
   }
 
   @override
   Future<void> getProducts() async {
-    (await _productsUsecase.execute(ProductsUseCaseInput(100, 1))).fold(
+    (await _productsUseCase.execute(ProductsUseCaseInput(100, 1))).fold(
         (failure) {
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
-
-      Future.delayed(Duration(seconds: 3), () {
-        inputState.add(ContentState());
-      });
     }, (data) {
       print(data);
     });

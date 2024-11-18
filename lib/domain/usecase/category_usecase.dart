@@ -5,13 +5,12 @@ import 'package:dartz/dartz.dart';
 import '../repository/repository.dart';
 import 'base_usecase.dart';
 
-class ProductsUseCase implements BaseUseCase<void, List<Category>>{
+class CategoryUseCase implements BaseUseCase<void, List<Category>>{
   Repository _repository;
-  ProductsUseCase(this._repository);
+  CategoryUseCase(this._repository);
 
   @override
   Future<Either<Failure, List<Category>>> execute(void input) async {
    return await _repository.categories();
   }
-  
 }

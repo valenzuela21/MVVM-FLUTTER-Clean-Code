@@ -6,6 +6,7 @@ import 'package:approducts/data/network/dio_factory.dart';
 import 'package:approducts/data/network/network_info.dart';
 import 'package:approducts/data/repository/repository_impl.dart';
 import 'package:approducts/domain/repository/repository.dart';
+import 'package:approducts/domain/usecase/category_usecase.dart';
 import 'package:approducts/domain/usecase/login_usecase.dart';
 import 'package:approducts/domain/usecase/products_usecase.dart';
 import 'package:approducts/presentation/common/components/confirm_modal/ConfirmModalViewModel.dart';
@@ -58,8 +59,9 @@ initLoginModule(){
 initProductsModule(){
   if(!GetIt.I.isRegistered<ProductsUsecase>()){
     instance.registerFactory<ProductsUsecase>(() => ProductsUsecase(instance()));
+    instance.registerFactory<CategoryUseCase>(() => CategoryUseCase(instance()));
     instance.registerFactory<ProductsViewModel>(() =>  ProductsViewModel(instance()));
-    instance.registerFactory<ConfirmModalViewModel>(() => ConfirmModalViewModel(instance()));
+    instance.registerFactory<ConfirmModalViewModel>(() => ConfirmModalViewModel(instance(), instance()));
   }
 }
 
