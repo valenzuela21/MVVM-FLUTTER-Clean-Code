@@ -1,3 +1,4 @@
+import 'package:approducts/data/responses/branches.response.dart';
 import 'package:approducts/data/responses/category.respose.dart';
 import 'package:approducts/data/responses/products.reponse.dart';
 import 'package:approducts/data/responses/responses.dart';
@@ -45,6 +46,17 @@ extension CategoryResponseMapper on CategoryResponse {
       return domain.Category(
         categoryItem.id,
         categoryItem.name,
+      );
+    }).toList();
+  }
+}
+
+extension BranchesResponseMapper on BranchResponse {
+  List<domain.Brand> toDomain() {
+    return items.map((branchItem) {
+      return domain.Brand(
+        branchItem.id,
+        branchItem.name,
       );
     }).toList();
   }

@@ -4,6 +4,7 @@ import 'package:approducts/data/network/failure.dart';
 import 'package:approducts/data/network/error_handler.dart';
 import 'package:approducts/data/network/network_info.dart';
 import 'package:approducts/data/request/request.dart';
+import 'package:approducts/data/responses/branches.response.dart';
 import 'package:approducts/domain/model/model.dart';
 import 'package:approducts/domain/repository/repository.dart';
 import 'package:dartz/dartz.dart';
@@ -52,6 +53,20 @@ class RepositoryImpl extends Repository {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.categories();
+        return Right(response.toDomain());
+      } catch (error) {
+        return (Left(ErrorHandler.handle(error).failure));
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Brand>>> brands() async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.branches();
         return Right(response.toDomain());
       } catch (error) {
         return (Left(ErrorHandler.handle(error).failure));

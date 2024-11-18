@@ -147,7 +147,7 @@ class _AppServiceClient implements AppServiceClient {
     )
         .compose(
           _dio.options,
-          '/branches/all',
+          '/brands/all',
           queryParameters: queryParameters,
           data: _data,
         )

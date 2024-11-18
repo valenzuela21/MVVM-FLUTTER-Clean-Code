@@ -1,3 +1,4 @@
+import 'package:approducts/domain/usecase/branches_usecase.dart';
 import 'package:approducts/domain/usecase/category_usecase.dart';
 
 import '../../../../domain/usecase/products_usecase.dart';
@@ -9,8 +10,10 @@ class ConfirmModalViewModel extends BaseViewModel
     implements ConfirmModalViewModelInputs {
   ProductsUsecase _productsUseCase;
   CategoryUseCase _categoryUseCase;
+  BranchesUseCase _branchesUseCase;
 
-  ConfirmModalViewModel(this._productsUseCase, this._categoryUseCase);
+  ConfirmModalViewModel(
+      this._productsUseCase, this._categoryUseCase, this._branchesUseCase);
 
   @override
   void start() {}
@@ -23,8 +26,13 @@ class ConfirmModalViewModel extends BaseViewModel
   }
 
   @override
-  Future<void> getBranch() {
-    throw UnimplementedError();
+  Future<void> getBranch() async {
+    (await _branchesUseCase.execute(0)).fold((failure) {
+      inputState.add(
+          ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
+    }, (data) {
+      print(data);
+    });
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:approducts/data/network/app_api.dart';
 import 'package:approducts/data/request/request.dart';
+import 'package:approducts/data/responses/branches.response.dart';
 import 'package:approducts/data/responses/category.respose.dart';
 import 'package:approducts/data/responses/products.reponse.dart';
 import 'package:approducts/data/responses/responses.dart';
@@ -8,6 +9,7 @@ abstract class RemoteDataSource {
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
   Future<ProductListResponse> products(ProductsRequest productsRequest);
   Future<CategoryResponse> categories();
+  Future<BranchResponse> branches();
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -30,4 +32,8 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
     return await _appServiceClient.getCategories();
   }
 
+  @override
+  Future<BranchResponse> branches() async {
+    return await _appServiceClient.getBranches();
+  }
 }

@@ -28,7 +28,7 @@ abstract class AppServiceClient {
   @GET('/categories/all')
   Future<CategoryResponse> getCategories();
 
-  @GET('/branches/all')
+  @GET('/brands/all')
   Future<BranchResponse> getBranches();
 
 }

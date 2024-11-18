@@ -7,4 +7,5 @@ abstract class Repository {
   Future<Either<Failure, Authentication>> login(LoginRequest loginRequest);
   Future<Either<Failure, Products>> products(ProductsRequest productsRequest);
   Future<Either<Failure, List<Category>>> categories();
+  Future<Either<Failure, List<Brand>>> brands();
 }
