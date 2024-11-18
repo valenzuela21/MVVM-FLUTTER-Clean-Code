@@ -40,5 +40,6 @@
   "text_category": "Category: ",
   "not_never_data": "There is no data available on your device.",
   "synchronize_now": "Synchronize Now",
-  "yuo_want_update": "You want to update it"
+  "yuo_want_update": "You want to update it",
+  "not_found_search": "Not Found."
 }

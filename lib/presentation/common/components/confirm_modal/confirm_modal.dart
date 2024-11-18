@@ -19,6 +19,7 @@ class ConfirmModalComponent extends StatelessWidget {
     return Column(
       children: [
         Image.asset(ImageAssets.notFoundData, width: AppSize.s190),
+        SizedBox(height: AppSize.s14),
         Text(AppStrings.not_never_data,
             style: getMediumStyle(
                 color: ColorManager.black, fontSize: AppSize.s20),

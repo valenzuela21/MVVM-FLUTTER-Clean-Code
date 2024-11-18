@@ -12,6 +12,7 @@ class AppStrings {
   static const String passwordError = "password_error";
   static const String synchronize_now = "synchronize_now";
   static const String yuo_want_update = "yuo_want_update";
+  static const String not_found_search = "not_found_search";
 
   // error handler
   static const String badRequestError = "bad_request_error";

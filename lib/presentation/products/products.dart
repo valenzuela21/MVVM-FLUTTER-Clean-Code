@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:approducts/presentation/common/components/no_found.dart';
 import 'package:approducts/presentation/common/components/start_rating.dart';
 import 'package:approducts/presentation/products/ProductsViewmodel.dart';
 import 'package:approducts/presentation/resources/assets_manager.dart';
@@ -118,7 +119,7 @@ class _ProductsState extends State<ProductsView> {
                     return Center(
                         child: Text('Error Snapshot: ${snapshot.error}'));
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No se encontraron productos.'));
+                    return Center(child: NoFoundComponent());
                   }
 
                   final products = snapshot.data!;

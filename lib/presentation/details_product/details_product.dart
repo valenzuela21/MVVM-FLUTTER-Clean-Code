@@ -1,3 +1,4 @@
+import 'package:approducts/presentation/common/components/no_found.dart';
 import 'package:approducts/presentation/common/components/start_rating.dart';
 import 'package:approducts/presentation/resources/color_manager.dart';
 import 'package:approducts/presentation/resources/strings_manager.dart';
@@ -58,7 +59,7 @@ class _DetailsProductViewState extends State<DetailsProductView> {
       } else if (snapshot.hasError) {
         return Center(child: Text('Error Snapshot: ${snapshot.error}'));
       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-        return Center(child: Text('No se encontro el product.'));
+        return NoFoundComponent();
       }
 
       final Map<String, dynamic> product = snapshot.data!;
