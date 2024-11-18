@@ -46,7 +46,9 @@ class RepositoryImpl extends Repository {
     }
   }
 
-  Future<Either<Failure, List<Category>>> categorys() async {
+
+  @override
+  Future<Either<Failure, List<Category>>> categories() async {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.categories();
