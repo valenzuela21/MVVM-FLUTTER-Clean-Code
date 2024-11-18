@@ -5,6 +5,8 @@ import 'package:approducts/domain/model/model.dart';
 import 'package:approducts/domain/repository/local_db_repository.dart';
 import 'package:approducts/domain/usecase/branches_usecase.dart';
 import 'package:approducts/domain/usecase/category_usecase.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 import '../../../../domain/usecase/products_usecase.dart';
 import '../../../base/baseviewmodel.dart';
@@ -27,9 +29,11 @@ class ConfirmModalViewModel extends BaseViewModel
   }
 
   @override
-  initTransferDatabaseLocal() async {
+  initTransferDatabaseLocal(BuildContext context) async {
     try {
       await Future.wait([getProducts(), getBranch(), getCategory()]);
+      Phoenix.rebirth(context);
+      inputState.add(ContentState());
     } catch (e) {
       inputState.add(ContentState());
       inputState
@@ -85,7 +89,7 @@ class ConfirmModalViewModel extends BaseViewModel
 }
 
 abstract class ConfirmModalViewModelInputs {
-  initTransferDatabaseLocal();
+  initTransferDatabaseLocal(BuildContext context);
 
   Future<void> getProducts();
 

@@ -41,7 +41,7 @@ class ConfirmModalComponent extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            _viewModel.initTransferDatabaseLocal();
+            _viewModel.initTransferDatabaseLocal(context);
           },
           child: Text(AppStrings.yuo_want_update).tr(),
         ),
