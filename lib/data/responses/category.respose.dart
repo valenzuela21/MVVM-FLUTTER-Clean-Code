@@ -7,13 +7,10 @@ class CategoryResponse {
 
   CategoryResponse({required this.items});
 
-  factory CategoryResponse.fromJson(List<dynamic> json) {
-    return CategoryResponse(
-      items: json.map((e) => CategoryItem.fromJson(e as Map<String, dynamic>)).toList(),
-    );
-  }
+  factory CategoryResponse.fromJson(Map<String, dynamic> json) =>
+      _$CategoryResponseFromJson(json);
 
-  List<Map<String, dynamic>> toJson() => items.map((e) => e.toJson()).toList();
+  Map<String, dynamic> toJson() => _$CategoryResponseToJson(this);
 }
 
 

@@ -1,3 +1,4 @@
+import 'package:approducts/data/responses/category.respose.dart';
 import 'package:approducts/data/responses/products.reponse.dart';
 import 'package:approducts/data/responses/responses.dart';
 import 'package:approducts/domain/model/model.dart' as domain;
@@ -35,5 +36,16 @@ extension ProductsResponseMapper on ProductListResponse {
       this.size,
       this.pages,
     );
+  }
+}
+
+extension CategoryResponseMapper on CategoryResponse {
+  List<domain.Category> toDomain() {
+    return items.map((categoryItem) {
+      return domain.Category(
+        categoryItem.id,
+        categoryItem.name,
+      );
+    }).toList();
   }
 }

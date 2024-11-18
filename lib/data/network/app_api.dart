@@ -1,3 +1,4 @@
+import 'package:approducts/data/responses/category.respose.dart';
 import 'package:approducts/data/responses/products.reponse.dart';
 import 'package:approducts/data/responses/responses.dart';
 import 'package:retrofit/http.dart';
@@ -23,8 +24,8 @@ abstract class AppServiceClient {
       @Query('size') int size,
       );
 
-
-
+  @GET('/categories/all')
+  Future<CategoryResponse> getCategories();
 
 }
 

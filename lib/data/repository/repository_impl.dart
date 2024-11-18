@@ -45,4 +45,21 @@ class RepositoryImpl extends Repository {
       return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
+
+  Future<Either<Failure, List<Category>>> categorys() async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.categories();
+        return Right(response.toDomain());
+      } catch (error) {
+        return (Left(ErrorHandler.handle(error).failure));
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
 }
+
+
+
