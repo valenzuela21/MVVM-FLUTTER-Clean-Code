@@ -22,7 +22,6 @@ class ProductsView extends StatefulWidget {
 }
 
 class _ProductsState extends State<ProductsView> {
-
   Timer? _debounce;
   final ProductsViewModel _viewModel = instance<ProductsViewModel>();
   final TextEditingController _searchController = TextEditingController();
@@ -82,7 +81,33 @@ class _ProductsState extends State<ProductsView> {
 
   Widget _getContentWidget() {
     return SafeArea(
-        child: StreamBuilder<List<Map<String, dynamic>>>(
+        child: Column(
+      children: [
+        TextFormField(
+          keyboardType: TextInputType.text,
+          controller: _searchController,
+          decoration: InputDecoration(
+            hintText: AppStrings.searchHint.tr(),
+            labelText: AppStrings.searchLabel.tr(),
+            hintStyle: TextStyle(
+              fontSize: AppSize.s20,
+              color: ColorManager.black,
+            ),
+            labelStyle: TextStyle(
+              fontSize: AppSize.s18,
+              color: ColorManager.black,
+            ),
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: AppSize.s0, vertical: AppSize.s8),
+          ),
+          style: TextStyle(
+            fontSize: AppSize.s20,
+            color: Colors.black,
+          ),
+        ),
+        SizedBox(height: AppSize.s20),
+        Expanded(
+          child: StreamBuilder<List<Map<String, dynamic>>>(
             stream: _viewModel.productsStream,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -97,59 +122,33 @@ class _ProductsState extends State<ProductsView> {
 
               return Padding(
                 padding: EdgeInsets.all(AppSize.s8),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        hintText: AppStrings.searchHint.tr(),
-                        labelText: AppStrings.searchLabel.tr(),
-                        hintStyle: TextStyle(
-                          fontSize: AppSize.s20,
-                          color: ColorManager.black,
-                        ),
-                        labelStyle: TextStyle(
-                          fontSize: AppSize.s18,
-                          color: ColorManager.black,
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: AppSize.s0, vertical: AppSize.s8),
-                      ),
-                      style: TextStyle(
-                        fontSize: AppSize.s20,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: AppSize.s20),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: products.length,
-                        itemBuilder: (context, index) {
-                          Map<String, dynamic> product = products[index];
-                          return Container(
-                              width: double.infinity,
-                              child: Card(
-                                  child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: AppSize.s14,
-                                          vertical: AppSize.s14),
-                                      child: Column(
-                                        children: [_HeaderCard(product: product), _ContentCard(product: product)],
-                                      ))));
-                        },
-                      ),
-                    ),
-
-                  ],
+                child: ListView.builder(
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    Map<String, dynamic> product = products[index];
+                    return Container(
+                        width: double.infinity,
+                        child: Card(
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppSize.s14,
+                                    vertical: AppSize.s14),
+                                child: Column(
+                                  children: [
+                                    _HeaderCard(product: product),
+                                    _ContentCard(product: product)
+                                  ],
+                                ))));
+                  },
                 ),
               );
-            }));
+            })
+        )],
+    ));
   }
 }
 
 class _ContentCard extends StatelessWidget {
-
   Map<String, dynamic> product;
 
   _ContentCard({super.key, required this.product});
@@ -206,9 +205,8 @@ class _ContentCard extends StatelessWidget {
 
 class _HeaderCard extends StatelessWidget {
   Map<String, dynamic> product;
-  _HeaderCard({
-    super.key, required this.product
-  });
+
+  _HeaderCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +222,9 @@ class _HeaderCard extends StatelessWidget {
             )),
         Flexible(
           flex: 1,
-          child: StartRatingComponent(startRating: product['rating'].toString(),),
+          child: StartRatingComponent(
+            startRating: product['rating'].toString(),
+          ),
         )
       ],
     );
