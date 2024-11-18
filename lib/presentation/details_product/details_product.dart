@@ -9,7 +9,7 @@ import '../resources/assets_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/style_manager.dart';
 import '../resources/values_manager.dart';
-import 'ProductViewModel.dart';
+import 'DetailViewModel.dart';
 
 class DetailsProductView extends StatefulWidget {
 
@@ -23,7 +23,7 @@ class DetailsProductView extends StatefulWidget {
 
 class _DetailsProductViewState extends State<DetailsProductView> {
 
-  final ProductViewModel _viewModel = instance<ProductViewModel>();
+  final DetailViewModel _viewModel = instance<DetailViewModel>();
 
   @override
   void initState() {
@@ -50,42 +50,61 @@ class _DetailsProductViewState extends State<DetailsProductView> {
         ),
       ),
       body: SafeArea(
-          child: Padding(padding: EdgeInsets.all(AppSize.s18), child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: StreamBuilder<Map<String, dynamic>>(
+    stream: _viewModel.productStream,
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(child: CircularProgressIndicator());
+      } else if (snapshot.hasError) {
+        return Center(child: Text('Error Snapshot: ${snapshot.error}'));
+      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+        return Center(child: Text('No se encontro el product.'));
+      }
+
+      final Map<String, dynamic> product = snapshot.data!;
+
+      return  Padding(padding: EdgeInsets.all(AppSize.s18), child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  Flexible(
-                    flex: 3,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Text("",
-                          style: getBoldStyle(
-                              color: ColorManager.primary, fontSize: AppSize.s40)),
-                    ),
-                  ),
-                  Flexible(flex: 1, child: StartRatingComponent(startRating: "0.9",))
-                ],
+              Flexible(
+                flex: 3,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Text(product['product_name'] ?? "",
+                      style: getBoldStyle(
+                          color: ColorManager.primary, fontSize: AppSize.s40)),
+                ),
               ),
-              SizedBox(height: 20),
-              Text(AppStrings.description,
-                  style: getMediumStyle(
-                      color: ColorManager.primary, fontSize: AppSize.s28)).tr(),
-              Text(
-                  "Esta es una descripción del producto de apple que es muy lindo.",
-                  style: getRegularStyle(
-                      color: ColorManager.primary, fontSize: AppSize.s18)),
-              SizedBox(height: 20),
-              _ListPrices()
+              Flexible(flex: 1, child: StartRatingComponent(startRating: "0.9",))
             ],
-          ))),
+          ),
+          SizedBox(height: 20),
+          Text(AppStrings.description,
+              style: getMediumStyle(
+                  color: ColorManager.primary, fontSize: AppSize.s28)).tr(),
+          Text(
+              product['description'] ?? "",
+              style: getRegularStyle(
+                  color: ColorManager.primary, fontSize: AppSize.s18)),
+          SizedBox(height: 20),
+          _ListPrices(product: product)
+        ],
+      ));
+    }),
+
+         ),
     );
   }
 }
 
 class _ListPrices extends StatelessWidget {
-  const _ListPrices({super.key});
+
+  final Map<String, dynamic> product;
+
+  _ListPrices({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -99,21 +118,21 @@ class _ListPrices extends StatelessWidget {
               width: AppSize.s28,
               height: AppSize.s28,
             ),
-            Text("Apple", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18))
+            Text( product['brand_name'] ?? "", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18))
           ],
         ),
         SizedBox(height: 10),
         Row(
           children: [
             Text(AppStrings.text_price, style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)).tr(),
-            Text("\$ 899", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18))
+            Text("\$ ${product['price'] ?? ""}", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18))
           ],
         ),
         SizedBox(height: 10),
         Row(
           children: [
-            Text(AppStrings.text_category, style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)),
-            Text("SmartPhone", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18)).tr()
+            Text(AppStrings.text_category, style: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s20)).tr(),
+            Text(product['category_name'] ?? "", style: getRegularStyle(color: ColorManager.primary, fontSize: AppSize.s18)).tr()
           ],
         )
       ],

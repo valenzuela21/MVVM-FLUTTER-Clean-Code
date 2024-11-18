@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:approducts/app/app_prefs.dart';
 import 'package:approducts/data/data_resource/remote_data_source.dart';
 import 'package:approducts/data/network/app_api.dart';
@@ -18,7 +16,7 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../presentation/details_product/ProductViewModel.dart';
+import '../presentation/details_product/DetailViewModel.dart';
 
 final instance = GetIt.instance;
 
@@ -66,7 +64,7 @@ initProductsModule(){
     instance.registerFactory<CategoryUseCase>(() => CategoryUseCase(instance()));
     instance.registerFactory<BranchesUseCase>(() => BranchesUseCase(instance()));
     instance.registerFactory<ProductsViewModel>(() =>  ProductsViewModel(instance()));
-    instance.registerFactory<ProductViewModel>(() =>  ProductViewModel());
+    instance.registerFactory<DetailViewModel>(() =>  DetailViewModel());
     instance.registerFactory<ConfirmModalViewModel>(() => ConfirmModalViewModel(instance(), instance(), instance()));
   }
 }

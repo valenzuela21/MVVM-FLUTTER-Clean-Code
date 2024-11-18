@@ -105,7 +105,6 @@ class _ProductsState extends State<ProductsView> {
                         itemCount: products.length,
                         itemBuilder: (context, index) {
                           Map<String, dynamic> product = products[index];
-                          print(product);
                           return Container(
                               width: double.infinity,
                               child: Card(
