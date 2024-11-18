@@ -126,4 +126,48 @@ class LocalRepositoryDatabase {
       return -1;
     }
   }
+
+  Future<List<Map<String, dynamic>>> searchProducts(String query) async {
+    try {
+      final db = await DatabaseHelper.instance.database;
+      var result = await db.rawQuery('''
+      SELECT product.id, product.name AS product_name, product.description, product.price, product.rating,
+             brand.name AS brand_name, category.name AS category_name
+      FROM product
+      LEFT JOIN brand ON product.brand_id = brand.id
+      LEFT JOIN category ON product.category_id = category.id
+      WHERE product.name LIKE ? OR product.description LIKE ?
+    ''', ['%$query%', '%$query%']);
+
+      return result;
+    } catch (e) {
+      logger.e("Error Search Products: $e");
+      return [];
+    }
+  }
+
+
+  Future<Map<String, dynamic>?> getProductById(int id) async {
+    try {
+      final db = await DatabaseHelper.instance.database;
+      var result = await db.rawQuery('''
+      SELECT product.id, product.name AS product_name, product.description, product.price, product.rating,
+             brand.name AS brand_name, category.name AS category_name
+      FROM product
+      LEFT JOIN brand ON product.brand_id = brand.id
+      LEFT JOIN category ON product.category_id = category.id
+      WHERE product.id = ?
+    ''', [id]);
+
+      if (result.isNotEmpty) {
+        return result.first;
+      } else {
+        return null; // No product found
+      }
+    } catch (e) {
+      logger.e("Error Get Product By ID: $e");
+      return null;
+    }
+  }
+
 }
