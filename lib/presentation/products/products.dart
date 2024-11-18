@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:approducts/presentation/common/components/start_rating.dart';
 import 'package:approducts/presentation/products/ProductsViewmodel.dart';
 import 'package:approducts/presentation/resources/assets_manager.dart';
@@ -20,18 +22,38 @@ class ProductsView extends StatefulWidget {
 }
 
 class _ProductsState extends State<ProductsView> {
+
+  Timer? _debounce;
   final ProductsViewModel _viewModel = instance<ProductsViewModel>();
   final TextEditingController _searchController = TextEditingController();
 
   _bind() {
     _viewModel.start();
     _viewModel.loadProducts();
+    _searchController.addListener(_onSearchChanged);
   }
 
   @override
   void initState() {
     _bind();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _onSearchChanged() {
+    if (_debounce?.isActive ?? false) {
+      _debounce?.cancel();
+    }
+
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      _viewModel.getSearchProducts(_searchController.text);
+    });
   }
 
   @override

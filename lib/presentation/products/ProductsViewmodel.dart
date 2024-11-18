@@ -6,12 +6,13 @@ import 'package:approducts/presentation/base/baseviewmodel.dart';
 import '../common/state_render/state_render.dart';
 import '../common/state_render/state_render_impl.dart';
 
-class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs, ProductsViewModelOutput {
-
-  final LocalRepositoryDatabase _productLocalRepository = LocalRepositoryDatabase();
+class ProductsViewModel extends BaseViewModel
+    implements ProductsViewModelInputs, ProductsViewModelOutput {
+  final LocalRepositoryDatabase _productLocalRepository =
+      LocalRepositoryDatabase();
 
   final StreamController<List<Map<String, dynamic>>> _productsController =
-  StreamController<List<Map<String, dynamic>>>.broadcast();
+      StreamController<List<Map<String, dynamic>>>.broadcast();
 
   ProductsUseCase _productsUsecase;
 
@@ -19,37 +20,37 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
 
   @override
   void start() async {
-
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
     try {
       final productCount = await _productLocalRepository.getProductCount();
       inputState.add(ProductCountState(message: productCount.toString()));
-    }catch(error){
+    } catch (error) {
       inputState.add(ProductCountState(message: ""));
-      inputState.add(ErrorState(
-          StateRendererType.POPUP_ERROR_STATE, error.toString()));
+      inputState.add(
+          ErrorState(StateRendererType.POPUP_ERROR_STATE, error.toString()));
     }
   }
 
   Future<void> loadProducts() async {
     try {
-      List<Map<String, dynamic>> products = await _productLocalRepository.getProducts();
+      List<Map<String, dynamic>> products =
+          await _productLocalRepository.getProducts();
       _productsController.sink.add(products);
     } catch (e) {
       _productsController.sink.addError("Error al cargar productos: $e");
     }
   }
 
-
   @override
   Future<void> getSearchProducts(String name) async {
-      try{
-      List<Map<String, dynamic>> searchResult = await _productLocalRepository.searchProducts(name);
+    try {
+      List<Map<String, dynamic>> searchResult =
+          await _productLocalRepository.searchProducts(name);
       _productsController.sink.add(searchResult);
-      }catch(e){
-        _productsController.sink.addError("Error al cargar productos: $e");
-      }
+    } catch (e) {
+      _productsController.sink.addError("Error al cargar productos: $e");
+    }
   }
 
   @override
@@ -58,8 +59,8 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
     super.dispose();
   }
 
-  Stream<List<Map<String, dynamic>>> get productsStream => _productsController.stream;
-
+  Stream<List<Map<String, dynamic>>> get productsStream =>
+      _productsController.stream;
 }
 
 abstract class ProductsViewModelInputs {
@@ -71,5 +72,3 @@ abstract class ProductsViewModelInputs {
 abstract class ProductsViewModelOutput {
   Stream<List<Map<String, dynamic>>> get productsStream;
 }
-
-
