@@ -1,4 +1,4 @@
-import 'package:approducts/data/network/Failure.dart';
+import 'package:approducts/data/network/failure.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class BaseUseCase<In, Out> {

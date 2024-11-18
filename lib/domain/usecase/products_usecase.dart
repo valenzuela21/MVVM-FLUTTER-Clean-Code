@@ -1,4 +1,4 @@
-import 'package:approducts/data/network/Failure.dart';
+import 'package:approducts/data/network/failure.dart';
 import 'package:approducts/data/request/request.dart';
 import 'package:approducts/domain/model/model.dart';
 import 'package:approducts/domain/usecase/base_usecase.dart';

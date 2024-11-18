@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../presentation/resources/strings_manager.dart';
-import 'package:approducts/data/network/Failure.dart';
+import 'package:approducts/data/network/failure.dart';
 
 enum DataSource {
   SUCCESS,

@@ -1,6 +1,6 @@
 import 'package:approducts/data/data_resource/remote_data_source.dart';
 import 'package:approducts/data/mapper/mapper.dart';
-import 'package:approducts/data/network/Failure.dart';
+import 'package:approducts/data/network/failure.dart';
 import 'package:approducts/data/network/error_handler.dart';
 import 'package:approducts/data/network/network_info.dart';
 import 'package:approducts/data/request/request.dart';
