@@ -38,7 +38,7 @@ class ProductsViewModel extends BaseViewModel
           await _productLocalRepository.getProducts();
       _productsController.sink.add(products);
     } catch (e) {
-      _productsController.sink.addError("Error al cargar productos: $e");
+      _productsController.sink.addError("Error loading products: $e");
     }
   }
 
@@ -49,7 +49,7 @@ class ProductsViewModel extends BaseViewModel
           await _productLocalRepository.searchProducts(name);
       _productsController.sink.add(searchResult);
     } catch (e) {
-      _productsController.sink.addError("Error al cargar productos: $e");
+      _productsController.sink.addError("Error loading products: $e");
     }
   }
 

@@ -17,7 +17,7 @@ class DetailViewModel extends BaseViewModel implements ProductViewModelInput, Pr
       Map<String, dynamic>? product = await _productLocalRepository.getProductById(id);
       _productController.sink.add(product!);
     }catch(e){
-      throw UnimplementedError();
+      _productController.sink.addError("Error loading product: $e");
     }
   }
 
