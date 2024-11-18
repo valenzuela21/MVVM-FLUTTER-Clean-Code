@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:approducts/data/mapper/mapper.dart';
 import 'package:approducts/presentation/common/state_render/state_render.dart';
 
-import '../../products/ProductsViewmodel.dart';
 
 abstract class FlowState {
   StateRendererType getStateRendererType();

@@ -8,6 +8,7 @@ import 'package:approducts/data/repository/repository_impl.dart';
 import 'package:approducts/domain/repository/repository.dart';
 import 'package:approducts/domain/usecase/login_usecase.dart';
 import 'package:approducts/domain/usecase/products_usecase.dart';
+import 'package:approducts/presentation/common/components/confirm_modal/ConfirmModalViewModel.dart';
 import 'package:approducts/presentation/login/LoginViewModel.dart';
 import 'package:approducts/presentation/products/ProductsViewmodel.dart';
 import 'package:get_it/get_it.dart';
@@ -58,6 +59,7 @@ initProductsModule(){
   if(!GetIt.I.isRegistered<ProductsUsecase>()){
     instance.registerFactory<ProductsUsecase>(() => ProductsUsecase(instance()));
     instance.registerFactory<ProductsViewModel>(() =>  ProductsViewModel(instance()));
+    instance.registerFactory<ConfirmModalViewModel>(() => ConfirmModalViewModel(instance()));
   }
 }
 

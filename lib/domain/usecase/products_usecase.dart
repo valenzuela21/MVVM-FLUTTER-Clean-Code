@@ -8,6 +8,7 @@ import 'package:dartz/dartz.dart';
 import '../repository/repository.dart';
 
 class ProductsUsecase implements BaseUseCase<ProductsUseCaseInput, Products>{
+
   Repository _repository;
   ProductsUsecase(this._repository);
 

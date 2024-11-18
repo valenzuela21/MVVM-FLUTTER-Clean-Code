@@ -1,5 +1,5 @@
 import 'package:approducts/data/mapper/mapper.dart';
-import 'package:approducts/presentation/common/components/confirm_modal.dart';
+import 'package:approducts/presentation/common/components/confirm_modal/confirm_modal.dart';
 import 'package:approducts/presentation/resources/assets_manager.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:approducts/presentation/resources/style_manager.dart';

@@ -4,9 +4,9 @@ import 'package:approducts/presentation/base/baseviewmodel.dart';
 import '../common/state_render/state_render.dart';
 import '../common/state_render/state_render_impl.dart';
 
-class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs {
+class ProductsViewModel extends BaseViewModel {
 
-  final LocalRepositoryDatabase _productRepository = LocalRepositoryDatabase();
+  final LocalRepositoryDatabase _productLocalRepository = LocalRepositoryDatabase();
 
   ProductsUsecase _productsUsecase;
 
@@ -14,35 +14,19 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
 
   @override
   void start() async {
-    inputState.add(ContentState());
+
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
     try {
-      final productCount = await _productRepository.getProductCount();
+      final productCount = await _productLocalRepository.getProductCount();
       inputState.add(ProductCountState(message: productCount.toString()));
     }catch(error){
+      inputState.add(ProductCountState(message: ""));
       inputState.add(ErrorState(
           StateRendererType.POPUP_ERROR_STATE, error.toString()));
     }
   }
 
-  @override
-  Future<void> getBranch() {
-    // TODO: implement getBranch
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> getCategory() {
-    // TODO: implement getCategory
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> getProducts() {
-    // TODO: implement getProducts
-    throw UnimplementedError();
-  }
 
   @override
   void dispose() {
@@ -51,11 +35,4 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
 
 }
 
-abstract class ProductsViewModelInputs {
-  Future<void> getProducts();
-
-  Future<void> getBranch();
-
-  Future<void> getCategory();
-}
 
