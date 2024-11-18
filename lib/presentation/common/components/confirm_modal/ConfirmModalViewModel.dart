@@ -1,3 +1,5 @@
+import 'package:approducts/data/responses/category.respose.dart';
+import 'package:approducts/domain/model/model.dart';
 import 'package:approducts/domain/repository/local_db_repository.dart';
 import 'package:approducts/domain/usecase/branches_usecase.dart';
 import 'package:approducts/domain/usecase/category_usecase.dart';
@@ -9,7 +11,6 @@ import '../../state_render/state_render_impl.dart';
 
 class ConfirmModalViewModel extends BaseViewModel
     implements ConfirmModalViewModelInputs {
-
   LocalRepositoryDatabase localRepositoryDatabase = LocalRepositoryDatabase();
 
   ProductsUsecase _productsUseCase;
@@ -25,15 +26,11 @@ class ConfirmModalViewModel extends BaseViewModel
   @override
   initTransferDatabaseLocal() async {
     try {
-      await Future.wait([
-      getProducts(),
-      getBranch(),
-      getCategory()
-      ]);
+      await Future.wait([getProducts(), getBranch(), getCategory()]);
     } catch (e) {
-      inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, e.toString()));
+      inputState
+          .add(ErrorState(StateRendererType.POPUP_ERROR_STATE, e.toString()));
     }
-
   }
 
   @override
@@ -42,7 +39,13 @@ class ConfirmModalViewModel extends BaseViewModel
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
-      print(data);
+      List<Map<String, dynamic>> brandMap = data.map((Brand brandItem) {
+        return brandItem.toMap();
+      }).toList();
+
+      for (var brand in brandMap) {
+        localRepositoryDatabase.insertBrand(brand);
+      }
     });
   }
 
@@ -52,7 +55,13 @@ class ConfirmModalViewModel extends BaseViewModel
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
-      print(data);
+      List<Map<String, dynamic>> categoryMap = data.map((Category categoryItem) {
+        return categoryItem.toMap();
+      }).toList();
+
+      for (var category in categoryMap) {
+        localRepositoryDatabase.insertCategory(category);
+      }
     });
   }
 
@@ -63,7 +72,16 @@ class ConfirmModalViewModel extends BaseViewModel
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
-      print(data.items);
+      List<Map<String, dynamic>>? productsMap =
+          data.items?.map((ProductItem productItem) {
+        return productItem.toMap();
+      }).toList();
+
+      if (productsMap is List) {
+        for (var product in productsMap!) {
+          localRepositoryDatabase.insertProduct(product);
+        }
+      }
     });
   }
 }

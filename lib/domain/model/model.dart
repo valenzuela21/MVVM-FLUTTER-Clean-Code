@@ -52,6 +52,22 @@ class ProductItem {
     this.createdOn,
     this.updatedOn,
   );
+
+  // Método toMap para convertir el objeto a un mapa
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'price': price,
+      'rating': rating,
+      'brand_id': brand?.id,
+      'category_id': category?.id,
+      'created_on': DateTime.now().toIso8601String(),
+      'updated_on': DateTime.now().toIso8601String(),
+    };
+  }
+
 }
 
 
@@ -61,6 +77,18 @@ class Brand {
   String? name;
 
   Brand(this.id, this.name);
+
+  @override
+  String toString() {
+    return 'Category{id: $id, name: $name}';
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+    };
+  }
 }
 
 class Category {
@@ -68,6 +96,18 @@ class Category {
   String? name;
 
   Category(this.id, this.name);
+
+  @override
+  String toString() {
+    return 'Brand{id: $id, name: $name}';
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+    };
+  }
 }
 
 
