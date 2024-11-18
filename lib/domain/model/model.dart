@@ -1,5 +1,3 @@
-import 'package:approducts/data/responses/products.reponse.dart';
-
 class UserInfo {
   String? email;
   String? fullname;

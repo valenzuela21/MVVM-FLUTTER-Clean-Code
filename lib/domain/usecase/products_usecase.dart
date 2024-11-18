@@ -2,7 +2,6 @@ import 'package:approducts/data/network/failure.dart';
 import 'package:approducts/data/request/request.dart';
 import 'package:approducts/domain/model/model.dart';
 import 'package:approducts/domain/usecase/base_usecase.dart';
-import 'package:approducts/domain/usecase/login_usecase.dart';
 import 'package:dartz/dartz.dart';
 
 import '../repository/repository.dart';

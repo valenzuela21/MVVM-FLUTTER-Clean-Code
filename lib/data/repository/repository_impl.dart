@@ -4,7 +4,6 @@ import 'package:approducts/data/network/failure.dart';
 import 'package:approducts/data/network/error_handler.dart';
 import 'package:approducts/data/network/network_info.dart';
 import 'package:approducts/data/request/request.dart';
-import 'package:approducts/data/responses/branches.response.dart';
 import 'package:approducts/domain/model/model.dart';
 import 'package:approducts/domain/repository/repository.dart';
 import 'package:dartz/dartz.dart';

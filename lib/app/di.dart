@@ -1,5 +1,4 @@
 import 'package:approducts/app/app_prefs.dart';
-import 'package:approducts/data/data_resource/local_data_sqlift.dart';
 import 'package:approducts/data/data_resource/remote_data_source.dart';
 import 'package:approducts/data/network/app_api.dart';
 import 'package:approducts/data/network/dio_factory.dart';
