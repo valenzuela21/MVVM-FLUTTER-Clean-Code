@@ -32,8 +32,8 @@ class ConfirmModalViewModel extends BaseViewModel
   initTransferDatabaseLocal(BuildContext context) async {
     try {
       await Future.wait([getProducts(), getBranch(), getCategory()]);
-      Phoenix.rebirth(context);
       inputState.add(ContentState());
+      Phoenix.rebirth(context);
     } catch (e) {
       inputState.add(ContentState());
       inputState
