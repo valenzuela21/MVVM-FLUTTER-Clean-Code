@@ -21,7 +21,9 @@ class ConfirmModalViewModel extends BaseViewModel
       this._productsUseCase, this._categoryUseCase, this._branchesUseCase);
 
   @override
-  void start() {}
+  void start() {
+
+  }
 
   @override
   initTransferDatabaseLocal() async {

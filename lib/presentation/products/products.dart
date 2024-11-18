@@ -25,6 +25,7 @@ class _ProductsState extends State<ProductsView> {
 
   _bind() {
     _viewModel.start();
+    _viewModel.loadProducts();
   }
 
   @override
@@ -59,50 +60,60 @@ class _ProductsState extends State<ProductsView> {
 
   Widget _getContentWidget(){
     return SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(AppSize.s8),
-          child: Column(
-            children: [
-              TextFormField(
-                keyboardType: TextInputType.text,
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: AppStrings.searchHint.tr(),
-                  labelText: AppStrings.searchLabel.tr(),
-                  hintStyle: TextStyle(
+        child: StreamBuilder<List<Map<String, dynamic>>>(
+            stream: _viewModel.productsStream,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return Center(child: Text('No se encontraron productos.'));
+              }
+              
+              final products = snapshot.data!;
+
+          return  Padding(
+            padding: EdgeInsets.all(AppSize.s8),
+            child: Column(
+              children: [
+                TextFormField(
+                  keyboardType: TextInputType.text,
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: AppStrings.searchHint.tr(),
+                    labelText: AppStrings.searchLabel.tr(),
+                    hintStyle: TextStyle(
+                      fontSize: AppSize.s20,
+                      color: ColorManager.black,
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: AppSize.s18,
+                      color: ColorManager.black,
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: AppSize.s0, vertical: AppSize.s8),
+                  ),
+                  style: TextStyle(
                     fontSize: AppSize.s20,
-                    color: ColorManager.black,
+                    color: Colors.black,
                   ),
-                  labelStyle: TextStyle(
-                    fontSize: AppSize.s18,
-                    color: ColorManager.black,
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                      horizontal: AppSize.s0, vertical: AppSize.s8),
                 ),
-                style: TextStyle(
-                  fontSize: AppSize.s20,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: AppSize.s20),
-              Column(
-                children: [
-                  Container(
-                      width: double.infinity,
-                      child: Card(
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: AppSize.s14,
-                                  vertical: AppSize.s14),
-                              child: Column(
-                                children: [_HeaderCard(), _ContentCard()],
-                              ))))
-                ],
-              )
-            ],
-          ),
-        ));
+                SizedBox(height: AppSize.s20),
+                Container(
+                    width: double.infinity,
+                    child: Card(
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: AppSize.s14,
+                                vertical: AppSize.s14),
+                            child: Column(
+                              children: [_HeaderCard(), _ContentCard()],
+                            ))))
+              ],
+            ),
+          );
+        } ));
   }
 }
 
