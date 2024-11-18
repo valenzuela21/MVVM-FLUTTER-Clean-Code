@@ -78,7 +78,7 @@ class _DetailsProductViewState extends State<DetailsProductView> {
                           color: ColorManager.primary, fontSize: AppSize.s40)),
                 ),
               ),
-              Flexible(flex: 1, child: StartRatingComponent(startRating: "0.9",))
+              Flexible(flex: 1, child: StartRatingComponent(startRating: product['rating'].toString() ?? "0.0",))
             ],
           ),
           SizedBox(height: 20),
