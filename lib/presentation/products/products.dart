@@ -83,67 +83,70 @@ class _ProductsState extends State<ProductsView> {
     return SafeArea(
         child: Column(
       children: [
-        TextFormField(
-          keyboardType: TextInputType.text,
-          controller: _searchController,
-          decoration: InputDecoration(
-            hintText: AppStrings.searchHint.tr(),
-            labelText: AppStrings.searchLabel.tr(),
-            hintStyle: TextStyle(
-              fontSize: AppSize.s20,
-              color: ColorManager.black,
-            ),
-            labelStyle: TextStyle(
-              fontSize: AppSize.s18,
-              color: ColorManager.black,
-            ),
-            contentPadding: EdgeInsets.symmetric(
-                horizontal: AppSize.s0, vertical: AppSize.s8),
-          ),
-          style: TextStyle(
-            fontSize: AppSize.s20,
-            color: Colors.black,
-          ),
-        ),
-        SizedBox(height: AppSize.s20),
-        Expanded(
-          child: StreamBuilder<List<Map<String, dynamic>>>(
-            stream: _viewModel.productsStream,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error Snapshot: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(child: Text('No se encontraron productos.'));
-              }
-
-              final products = snapshot.data!;
-
-              return Padding(
-                padding: EdgeInsets.all(AppSize.s8),
-                child: ListView.builder(
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    Map<String, dynamic> product = products[index];
-                    return Container(
-                        width: double.infinity,
-                        child: Card(
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AppSize.s14,
-                                    vertical: AppSize.s14),
-                                child: Column(
-                                  children: [
-                                    _HeaderCard(product: product),
-                                    _ContentCard(product: product)
-                                  ],
-                                ))));
-                  },
+        Padding(
+            padding: EdgeInsets.symmetric(vertical:AppSize.s1 , horizontal: AppSize.s12),
+            child: TextFormField(
+              keyboardType: TextInputType.text,
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: AppStrings.searchHint.tr(),
+                labelText: AppStrings.searchLabel.tr(),
+                hintStyle: TextStyle(
+                  fontSize: AppSize.s20,
+                  color: ColorManager.black,
                 ),
-              );
-            })
-        )],
+                labelStyle: TextStyle(
+                  fontSize: AppSize.s18,
+                  color: ColorManager.black,
+                ),
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: AppSize.s0, vertical: AppSize.s8),
+              ),
+              style: TextStyle(
+                fontSize: AppSize.s20,
+                color: Colors.black,
+              ),
+            )),
+        SizedBox(height: AppSize.s12),
+        Expanded(
+            child: StreamBuilder<List<Map<String, dynamic>>>(
+                stream: _viewModel.productsStream,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(
+                        child: Text('Error Snapshot: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('No se encontraron productos.'));
+                  }
+
+                  final products = snapshot.data!;
+
+                  return Padding(
+                    padding: EdgeInsets.all(AppSize.s8),
+                    child: ListView.builder(
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        Map<String, dynamic> product = products[index];
+                        return Container(
+                            width: double.infinity,
+                            child: Card(
+                                child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: AppSize.s14,
+                                        vertical: AppSize.s14),
+                                    child: Column(
+                                      children: [
+                                        _HeaderCard(product: product),
+                                        _ContentCard(product: product)
+                                      ],
+                                    ))));
+                      },
+                    ),
+                  );
+                }))
+      ],
     ));
   }
 }
