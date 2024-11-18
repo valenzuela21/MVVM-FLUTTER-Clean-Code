@@ -26,7 +26,6 @@ class _ProductsState extends State<ProductsView> {
   _bind() {
     _viewModel.start();
     _viewModel.loadProducts();
-    _viewModel.loadBradns();
   }
 
   @override
@@ -67,7 +66,7 @@ class _ProductsState extends State<ProductsView> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
+                return Center(child: Text('Error Snapshot: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return Center(child: Text('No se encontraron productos.'));
               }

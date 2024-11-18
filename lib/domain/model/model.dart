@@ -78,11 +78,6 @@ class Brand {
 
   Brand(this.id, this.name);
 
-  @override
-  String toString() {
-    return 'Category{id: $id, name: $name}';
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -97,10 +92,6 @@ class Category {
 
   Category(this.id, this.name);
 
-  @override
-  String toString() {
-    return 'Brand{id: $id, name: $name}';
-  }
 
   Map<String, dynamic> toMap() {
     return {

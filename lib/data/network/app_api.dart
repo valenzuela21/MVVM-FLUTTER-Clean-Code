@@ -35,6 +35,6 @@ abstract class AppServiceClient {
 
 class ParseErrorLogger {
   void logError(Object e, StackTrace s, RequestOptions options) {
-    print("Error: $e");
+    print("Error Api: $e");
   }
 }

@@ -16,7 +16,7 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
   Stream<List<Map<String, dynamic>>> get productsStream => _productsController.stream;
 
 
-  ProductsUsecase _productsUsecase;
+  ProductsUseCase _productsUsecase;
 
   ProductsViewModel(this._productsUsecase);
 
@@ -44,9 +44,6 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
     }
   }
 
-  Future<void>  loadBradns() async{
-    await _productLocalRepository.getBrands();
-  }
 
   @override
   void dispose() {

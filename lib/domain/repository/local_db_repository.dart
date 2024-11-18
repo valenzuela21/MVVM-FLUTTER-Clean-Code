@@ -10,7 +10,7 @@ class LocalRepositoryDatabase {
       final db = await DatabaseHelper.instance.database;
       return await db.insert('brand', brand);
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Insert Brand: $e");
       return -1;
     }
   }
@@ -20,7 +20,7 @@ class LocalRepositoryDatabase {
       final db = await DatabaseHelper.instance.database;
       return await db.insert('category', category);
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Insert Category: $e");
       return -1;
     }
   }
@@ -30,7 +30,7 @@ class LocalRepositoryDatabase {
       final db = await DatabaseHelper.instance.database;
       return await db.insert('product', product);
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Insert Product: $e");
       return -1;
     }
   }
@@ -47,7 +47,7 @@ class LocalRepositoryDatabase {
     ''');
       return result;
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Product All: $e");
       return [];
     }
   }
@@ -61,7 +61,7 @@ class LocalRepositoryDatabase {
       int count = Sqflite.firstIntValue(result) ?? 0;
       return count;
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Product: $e");
       return -1;
     }
   }
@@ -71,7 +71,7 @@ class LocalRepositoryDatabase {
       final db = await DatabaseHelper.instance.database;
       return await db.query('brand');
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Brand: $e");
       return [];
     }
   }
@@ -81,7 +81,7 @@ class LocalRepositoryDatabase {
       final db = await DatabaseHelper.instance.database;
       return await db.query('category');
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Category: $e");
       return [];
     }
   }
@@ -91,7 +91,7 @@ class LocalRepositoryDatabase {
       final db = await DatabaseHelper.instance.database;
       return await db.delete('product', where: 'id = ?', whereArgs: [id]);
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Delete Product: $e");
       return -1;
     }
   }
@@ -101,7 +101,7 @@ class LocalRepositoryDatabase {
       final db = await DatabaseHelper.instance.database;
       return await db.delete('brand', where: 'id = ?', whereArgs: [id]);
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Delete Brand: $e");
       return -1;
     }
   }
@@ -111,7 +111,7 @@ class LocalRepositoryDatabase {
       final db = await DatabaseHelper.instance.database;
       return await db.delete('category', where: 'id = ?', whereArgs: [id]);
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Delete Category: $e");
       return -1;
     }
   }
@@ -122,7 +122,7 @@ class LocalRepositoryDatabase {
       return await db.update('product', product,
           where: 'id = ?', whereArgs: [product['id']]);
     } catch (e) {
-      logger.e("Error: $e");
+      logger.e("Error Update Product: $e");
       return -1;
     }
   }

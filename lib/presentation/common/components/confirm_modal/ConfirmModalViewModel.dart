@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:approducts/data/responses/category.respose.dart';
 import 'package:approducts/domain/model/model.dart';
 import 'package:approducts/domain/repository/local_db_repository.dart';
@@ -13,7 +15,7 @@ class ConfirmModalViewModel extends BaseViewModel
     implements ConfirmModalViewModelInputs {
   LocalRepositoryDatabase localRepositoryDatabase = LocalRepositoryDatabase();
 
-  ProductsUsecase _productsUseCase;
+  ProductsUseCase _productsUseCase;
   CategoryUseCase _categoryUseCase;
   BranchesUseCase _branchesUseCase;
 
@@ -37,15 +39,13 @@ class ConfirmModalViewModel extends BaseViewModel
 
   @override
   Future<void> getBranch() async {
-    (await _branchesUseCase.execute(0)).fold((failure) {
+    (await _branchesUseCase.execute(Void)).fold((failure) {
+      print("ERROR BRANCH: ${failure.message} ${failure.code}");
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
-      List<Map<String, dynamic>> brandMap = data.map((Brand brandItem) {
-        return brandItem.toMap();
-      }).toList();
-
-      for (var brand in brandMap) {
+      for (var brand in data) {
+        print("Insert $brand");
         localRepositoryDatabase.insertBrand(brand);
       }
     });
@@ -53,15 +53,11 @@ class ConfirmModalViewModel extends BaseViewModel
 
   @override
   Future<void> getCategory() async {
-    (await _categoryUseCase.execute(0)).fold((failure) {
+    (await _categoryUseCase.execute(null)).fold((failure) {
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
-      List<Map<String, dynamic>> categoryMap = data.map((Category categoryItem) {
-        return categoryItem.toMap();
-      }).toList();
-
-      for (var category in categoryMap) {
+      for (var category in data) {
         localRepositoryDatabase.insertCategory(category);
       }
     });

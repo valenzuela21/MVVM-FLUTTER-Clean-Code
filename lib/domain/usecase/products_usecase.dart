@@ -6,10 +6,10 @@ import 'package:dartz/dartz.dart';
 
 import '../repository/repository.dart';
 
-class ProductsUsecase implements BaseUseCase<ProductsUseCaseInput, Products>{
+class ProductsUseCase implements BaseUseCase<ProductsUseCaseInput, Products>{
 
   Repository _repository;
-  ProductsUsecase(this._repository);
+  ProductsUseCase(this._repository);
 
   @override
   Future<Either<Failure, Products>> execute(ProductsUseCaseInput input) async {

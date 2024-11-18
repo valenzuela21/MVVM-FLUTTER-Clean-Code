@@ -41,23 +41,23 @@ extension ProductsResponseMapper on ProductListResponse {
 }
 
 extension CategoryResponseMapper on CategoryResponse {
-  List<domain.Category> toDomain() {
-    return items.map((categoryItem) {
-      return domain.Category(
-        categoryItem.id,
-        categoryItem.name,
-      );
+  List<dynamic> toDomain() {
+    return items.map((item) {
+      return {
+        'id': item.id,
+        'name': item.name,
+      };
     }).toList();
   }
 }
 
 extension BranchesResponseMapper on BranchResponse {
-  List<domain.Brand> toDomain() {
-    return items.map((branchItem) {
-      return domain.Brand(
-        branchItem.id,
-        branchItem.name,
-      );
+  List<dynamic> toDomain() {
+    return items.map((item) {
+      return {
+        'id': item.id,
+        'name': item.name,
+      };
     }).toList();
   }
 }

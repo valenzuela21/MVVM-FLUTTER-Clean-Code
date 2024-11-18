@@ -57,8 +57,8 @@ initLoginModule(){
 }
 
 initProductsModule(){
-  if(!GetIt.I.isRegistered<ProductsUsecase>()){
-    instance.registerFactory<ProductsUsecase>(() => ProductsUsecase(instance()));
+  if(!GetIt.I.isRegistered<ProductsUseCase>()){
+    instance.registerFactory<ProductsUseCase>(() => ProductsUseCase(instance()));
     instance.registerFactory<CategoryUseCase>(() => CategoryUseCase(instance()));
     instance.registerFactory<BranchesUseCase>(() => BranchesUseCase(instance()));
     instance.registerFactory<ProductsViewModel>(() =>  ProductsViewModel(instance()));

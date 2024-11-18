@@ -48,7 +48,7 @@ class RepositoryImpl extends Repository {
 
 
   @override
-  Future<Either<Failure, List<Category>>> categories() async {
+  Future<Either<Failure, List<dynamic>>> categories() async {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.categories();
@@ -62,7 +62,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, List<Brand>>> brands() async {
+  Future<Either<Failure,  List<dynamic>>> brands() async {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.branches();

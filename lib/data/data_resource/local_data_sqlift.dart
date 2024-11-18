@@ -51,8 +51,8 @@ class DatabaseHelper {
             price REAL,
             category_id INTEGER,
             rating REAL,
-            created_on DATETIME,
-            updated_on DATETIME,
+            created_on DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_on DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(brand_id) REFERENCES brand(id),
             FOREIGN KEY(category_id) REFERENCES category(id)
           )
