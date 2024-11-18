@@ -32,19 +32,19 @@ class DatabaseHelper {
           // Crear tablas
           await db.execute('''
           CREATE TABLE brand (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER,
             name TEXT
           )
         ''');
           await db.execute('''
           CREATE TABLE category (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER,
             name TEXT
           )
         ''');
           await db.execute('''
           CREATE TABLE product (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER,
             name TEXT,
             description TEXT,
             brand_id INTEGER,

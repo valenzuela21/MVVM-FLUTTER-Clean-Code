@@ -26,6 +26,7 @@ class _ProductsState extends State<ProductsView> {
   _bind() {
     _viewModel.start();
     _viewModel.loadProducts();
+    _viewModel.loadBradns();
   }
 
   @override
@@ -51,14 +52,14 @@ class _ProductsState extends State<ProductsView> {
             stream: _viewModel.outputState,
             builder: (context, snapshot) {
               return snapshot.data
-                  ?.getScreenWidget(context, _getContentWidget(), () {
+                      ?.getScreenWidget(context, _getContentWidget(), () {
                     _viewModel.start();
-              }) ??
+                  }) ??
                   _getContentWidget();
             }));
   }
 
-  Widget _getContentWidget(){
+  Widget _getContentWidget() {
     return SafeArea(
         child: StreamBuilder<List<Map<String, dynamic>>>(
             stream: _viewModel.productsStream,
@@ -70,57 +71,68 @@ class _ProductsState extends State<ProductsView> {
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return Center(child: Text('No se encontraron productos.'));
               }
-              
+
               final products = snapshot.data!;
 
-          return  Padding(
-            padding: EdgeInsets.all(AppSize.s8),
-            child: Column(
-              children: [
-                TextFormField(
-                  keyboardType: TextInputType.text,
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: AppStrings.searchHint.tr(),
-                    labelText: AppStrings.searchLabel.tr(),
-                    hintStyle: TextStyle(
-                      fontSize: AppSize.s20,
-                      color: ColorManager.black,
+              return Padding(
+                padding: EdgeInsets.all(AppSize.s8),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: AppStrings.searchHint.tr(),
+                        labelText: AppStrings.searchLabel.tr(),
+                        hintStyle: TextStyle(
+                          fontSize: AppSize.s20,
+                          color: ColorManager.black,
+                        ),
+                        labelStyle: TextStyle(
+                          fontSize: AppSize.s18,
+                          color: ColorManager.black,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: AppSize.s0, vertical: AppSize.s8),
+                      ),
+                      style: TextStyle(
+                        fontSize: AppSize.s20,
+                        color: Colors.black,
+                      ),
                     ),
-                    labelStyle: TextStyle(
-                      fontSize: AppSize.s18,
-                      color: ColorManager.black,
+                    SizedBox(height: AppSize.s20),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          Map<String, dynamic> product = products[index];
+                          print(product);
+                          return Container(
+                              width: double.infinity,
+                              child: Card(
+                                  child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: AppSize.s14,
+                                          vertical: AppSize.s14),
+                                      child: Column(
+                                        children: [_HeaderCard(product: product), _ContentCard(product: product)],
+                                      ))));
+                        },
+                      ),
                     ),
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: AppSize.s0, vertical: AppSize.s8),
-                  ),
-                  style: TextStyle(
-                    fontSize: AppSize.s20,
-                    color: Colors.black,
-                  ),
+
+                  ],
                 ),
-                SizedBox(height: AppSize.s20),
-                Container(
-                    width: double.infinity,
-                    child: Card(
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: AppSize.s14,
-                                vertical: AppSize.s14),
-                            child: Column(
-                              children: [_HeaderCard(), _ContentCard()],
-                            ))))
-              ],
-            ),
-          );
-        } ));
+              );
+            }));
   }
 }
 
-
-
 class _ContentCard extends StatelessWidget {
-  const _ContentCard({super.key});
+
+  Map<String, dynamic> product;
+
+  _ContentCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +150,7 @@ class _ContentCard extends StatelessWidget {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  "Apple - \$899",
+                  "${product['brand_name']} - \$899",
                   style: getMediumStyle(
                       color: ColorManager.primary, fontSize: AppSize.s14),
                 )
@@ -170,8 +182,9 @@ class _ContentCard extends StatelessWidget {
 }
 
 class _HeaderCard extends StatelessWidget {
-  const _HeaderCard({
-    super.key,
+  Map<String, dynamic> product;
+  _HeaderCard({
+    super.key, required this.product
   });
 
   @override

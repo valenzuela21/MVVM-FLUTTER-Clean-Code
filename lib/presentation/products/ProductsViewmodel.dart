@@ -44,6 +44,9 @@ class ProductsViewModel extends BaseViewModel implements ProductsViewModelInputs
     }
   }
 
+  Future<void>  loadBradns() async{
+    await _productLocalRepository.getBrands();
+  }
 
   @override
   void dispose() {
