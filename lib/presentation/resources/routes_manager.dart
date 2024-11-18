@@ -27,7 +27,8 @@ class RouterGenerator {
         initProductsModule();
         return MaterialPageRoute(builder: (_) => ProductsView());
       case Routes.detailProductRoute:
-        return MaterialPageRoute(builder: (_) => DetailsProductView());
+        Object? id = routeSettings.arguments;
+        return MaterialPageRoute(builder: (_) => DetailsProductView(id: id));
       default:
         return unDefinedRoute();
     }

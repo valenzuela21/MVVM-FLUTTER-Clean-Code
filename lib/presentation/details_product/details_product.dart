@@ -10,13 +10,23 @@ import '../resources/style_manager.dart';
 import '../resources/values_manager.dart';
 
 class DetailsProductView extends StatefulWidget {
-  const DetailsProductView({super.key});
+
+  final Object? id;
+
+  DetailsProductView({super.key, required this.id});
 
   @override
   State<DetailsProductView> createState() => _DetailsProductViewState();
 }
 
 class _DetailsProductViewState extends State<DetailsProductView> {
+
+  @override
+  void initState() {
+    print(widget.id);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,12 +55,12 @@ class _DetailsProductViewState extends State<DetailsProductView> {
                     flex: 3,
                     child: SizedBox(
                       width: double.infinity,
-                      child: Text("Iphone X",
+                      child: Text("",
                           style: getBoldStyle(
                               color: ColorManager.primary, fontSize: AppSize.s40)),
                     ),
                   ),
-                  Flexible(flex: 1, child: StartRatingComponent())
+                  Flexible(flex: 1, child: StartRatingComponent(startRating: "0.9",))
                 ],
               ),
               SizedBox(height: 20),

@@ -5,14 +5,17 @@ import '../../resources/color_manager.dart';
 import '../../resources/style_manager.dart';
 import '../../resources/values_manager.dart';
 class StartRatingComponent extends StatelessWidget {
-  const StartRatingComponent({super.key});
+
+  String startRating;
+
+  StartRatingComponent({super.key, required this.startRating});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 90,
       decoration: BoxDecoration(
         color: ColorManager.primary,
-        // Color de fondo del contenedor
         borderRadius:
         BorderRadius.circular(AppSize
             .s8),
@@ -28,7 +31,7 @@ class StartRatingComponent extends StatelessWidget {
           ),
           SizedBox(width: 10),
           Text(
-            "4.43",
+            this.startRating,
             style: getRegularStyle(
                 color: ColorManager.white,
                 fontSize: AppSize.s18),

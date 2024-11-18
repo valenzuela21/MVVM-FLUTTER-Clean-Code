@@ -41,7 +41,7 @@ extension ProductsResponseMapper on ProductListResponse {
 }
 
 extension CategoryResponseMapper on CategoryResponse {
-  List<dynamic> toDomain() {
+  List<Map<String, dynamic>> toDomain() {
     return items.map((item) {
       return {
         'id': item.id,
@@ -52,7 +52,7 @@ extension CategoryResponseMapper on CategoryResponse {
 }
 
 extension BranchesResponseMapper on BranchResponse {
-  List<dynamic> toDomain() {
+  List<Map<String, dynamic>> toDomain() {
     return items.map((item) {
       return {
         'id': item.id,

@@ -48,21 +48,23 @@ class RepositoryImpl extends Repository {
 
 
   @override
-  Future<Either<Failure, List<dynamic>>> categories() async {
+  Future<Either<Failure, List<Map<String, dynamic>>>> categories() async {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.categories();
+
         return Right(response.toDomain());
       } catch (error) {
-        return (Left(ErrorHandler.handle(error).failure));
+        return Left(ErrorHandler.handle(error).failure);
       }
-    }else{
+    } else {
       return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
 
+
   @override
-  Future<Either<Failure,  List<dynamic>>> brands() async {
+  Future<Either<Failure,  List<Map<String, dynamic>>>> brands() async {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.branches();

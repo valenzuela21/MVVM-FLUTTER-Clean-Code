@@ -167,8 +167,11 @@ class _ContentCard extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushReplacementNamed(Routes.detailProductRoute);
+                  Navigator.pushNamed(
+                    context,
+                    Routes.detailProductRoute,
+                    arguments: product["id"],
+                  );
                 },
                 child: Text(AppStrings.viewDetails).tr(),
               ),
@@ -194,13 +197,13 @@ class _HeaderCard extends StatelessWidget {
             flex: 3,
             child: Container(
               width: double.infinity,
-              child: Text("Iphone X",
+              child: Text(product['product_name'],
                   style: getMediumStyle(
                       color: ColorManager.black, fontSize: AppSize.s18)),
             )),
         Flexible(
           flex: 1,
-          child: StartRatingComponent(),
+          child: StartRatingComponent(startRating: product['rating'].toString(),),
         )
       ],
     );

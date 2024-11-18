@@ -45,7 +45,6 @@ class ConfirmModalViewModel extends BaseViewModel
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
       for (var brand in data) {
-        print("Insert $brand");
         localRepositoryDatabase.insertBrand(brand);
       }
     });
@@ -54,6 +53,7 @@ class ConfirmModalViewModel extends BaseViewModel
   @override
   Future<void> getCategory() async {
     (await _categoryUseCase.execute(Void)).fold((failure) {
+      print("ERROR CATEGORY: ${failure.message} ${failure.code}");
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {

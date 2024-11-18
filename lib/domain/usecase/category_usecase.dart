@@ -10,7 +10,7 @@ class CategoryUseCase implements BaseUseCase<void, List<dynamic>>{
   CategoryUseCase(this._repository);
 
   @override
-  Future<Either<Failure, List<dynamic>>> execute(void input) async {
+  Future<Either<Failure, List<Map<String, dynamic>>>> execute(void input) async {
    return await _repository.categories();
   }
 }
