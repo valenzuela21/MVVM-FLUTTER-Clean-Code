@@ -71,4 +71,5 @@ resetModules(){
   instance.reset(dispose: false);
   initAppModule();
   initLoginModule();
+  initProductsModule();
 }

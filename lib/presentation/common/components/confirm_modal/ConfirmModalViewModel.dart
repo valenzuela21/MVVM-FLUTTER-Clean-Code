@@ -1,3 +1,4 @@
+import 'package:approducts/domain/repository/local_db_repository.dart';
 import 'package:approducts/domain/usecase/branches_usecase.dart';
 import 'package:approducts/domain/usecase/category_usecase.dart';
 
@@ -8,6 +9,9 @@ import '../../state_render/state_render_impl.dart';
 
 class ConfirmModalViewModel extends BaseViewModel
     implements ConfirmModalViewModelInputs {
+
+  LocalRepositoryDatabase localRepositoryDatabase = LocalRepositoryDatabase();
+
   ProductsUsecase _productsUseCase;
   CategoryUseCase _categoryUseCase;
   BranchesUseCase _branchesUseCase;
@@ -19,10 +23,17 @@ class ConfirmModalViewModel extends BaseViewModel
   void start() {}
 
   @override
-  initTransferDatabaseLocal() {
-    getProducts();
-    getBranch();
-    getCategory();
+  initTransferDatabaseLocal() async {
+    try {
+      await Future.wait([
+      getProducts(),
+      getBranch(),
+      getCategory()
+      ]);
+    } catch (e) {
+      inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, e.toString()));
+    }
+
   }
 
   @override
@@ -52,7 +63,7 @@ class ConfirmModalViewModel extends BaseViewModel
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
-      print(data);
+      print(data.items);
     });
   }
 }

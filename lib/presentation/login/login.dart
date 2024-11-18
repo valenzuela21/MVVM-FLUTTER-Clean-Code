@@ -34,9 +34,9 @@ class _LoginState extends State<LoginView> {
         .addListener(() => _viewModel.setUserName(_userNameController.text));
     _passwordController
         .addListener(() => _viewModel.setPassword(_passwordController.text));
+
     _viewModel.isUserLoggedInSuccessFullyStreamController.stream
         .listen((token) {
-
       SchedulerBinding.instance.addPostFrameCallback((_) {
         _appPreferences.setUserToken(token);
         _appPreferences.setIsUserLoogedIn();
