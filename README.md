@@ -15,3 +15,11 @@ flutter pub get
 cd myProject
 flutter run
 ```
+
+## Important
+Change the backend url if you want to the location of your machine.
+```class Constant{
+  static const String baseUrl ="https://fastapi-example-zkqn.onrender.com";
+  static const String token ="get api token here";
+}
+```
