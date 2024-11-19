@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:approducts/data/responses/branches.response.dart';
 import 'package:approducts/data/responses/category.respose.dart';
 import 'package:approducts/domain/model/model.dart';
 import 'package:approducts/domain/repository/local_db_repository.dart';
@@ -44,12 +45,11 @@ class ConfirmModalViewModel extends BaseViewModel
   @override
   Future<void> getBranch() async {
     (await _branchesUseCase.execute(Void)).fold((failure) {
-      print("ERROR BRANCH: ${failure.message} ${failure.code}");
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
-      for (var brand in data) {
-        localRepositoryDatabase.insertBrand(brand);
+      for (var item in data) {
+      localRepositoryDatabase.insertBrand(item.toMap());
       }
     });
   }

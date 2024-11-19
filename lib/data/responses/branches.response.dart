@@ -27,4 +27,11 @@ class BranchItem {
   factory BranchItem.fromJson(Map<String, dynamic> json) => _$BranchItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$BranchItemToJson(this);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+    };
+  }
 }

@@ -9,7 +9,7 @@ abstract class RemoteDataSource {
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
   Future<ProductListResponse> products(ProductsRequest productsRequest);
   Future<CategoryResponse> categories();
-  Future<BranchResponse> branches();
+  Future<List<BranchItem>> branches();
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -33,7 +33,7 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   }
 
   @override
-  Future<BranchResponse> branches() async {
+  Future<List<BranchItem>> branches() async {
     return await _appServiceClient.getBranches();
   }
 }

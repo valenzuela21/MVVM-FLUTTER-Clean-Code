@@ -51,13 +51,3 @@ extension CategoryResponseMapper on CategoryResponse {
   }
 }
 
-extension BranchesResponseMapper on BranchResponse {
-  List<Map<String, dynamic>> toDomain() {
-    return items.map((item) {
-      return {
-        'id': item.id,
-        'name': item.name,
-      };
-    }).toList();
-  }
-}

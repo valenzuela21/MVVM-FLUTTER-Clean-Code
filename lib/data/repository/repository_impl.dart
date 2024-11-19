@@ -8,6 +8,8 @@ import 'package:approducts/domain/model/model.dart';
 import 'package:approducts/domain/repository/repository.dart';
 import 'package:dartz/dartz.dart';
 
+import '../responses/branches.response.dart';
+
 class RepositoryImpl extends Repository {
   RemoteDataSource _remoteDataSource;
   NetworkInfo _networkInfo;
@@ -64,12 +66,14 @@ class RepositoryImpl extends Repository {
 
 
   @override
-  Future<Either<Failure,  List<Map<String, dynamic>>>> brands() async {
+  Future<Either<Failure,  List<BranchItem>>> brands() async {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.branches();
-        return Right(response.toDomain());
+        print("Aqui $response");
+        return Right(response);
       } catch (error) {
+        print("Aqui $error");
         return (Left(ErrorHandler.handle(error).failure));
       }
     }else{

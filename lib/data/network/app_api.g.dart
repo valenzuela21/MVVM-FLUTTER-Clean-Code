@@ -135,12 +135,12 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<BranchResponse> getBranches() async {
+  Future<List<BranchItem>> getBranches() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BranchResponse>(Options(
+    final _options = _setStreamType<List<BranchItem>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -156,10 +156,12 @@ class _AppServiceClient implements AppServiceClient {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BranchResponse _value;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<BranchItem> _value;
     try {
-      _value = BranchResponse.fromJson(_result.data!);
+      _value = _result.data!
+          .map((dynamic i) => BranchItem.fromJson(i as Map<String, dynamic>))
+          .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
