@@ -27,4 +27,11 @@ class CategoryItem {
   factory CategoryItem.fromJson(Map<String, dynamic> json) => _$CategoryItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryItemToJson(this);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+    };
+  }
 }

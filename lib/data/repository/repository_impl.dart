@@ -4,6 +4,7 @@ import 'package:approducts/data/network/failure.dart';
 import 'package:approducts/data/network/error_handler.dart';
 import 'package:approducts/data/network/network_info.dart';
 import 'package:approducts/data/request/request.dart';
+import 'package:approducts/data/responses/category.respose.dart';
 import 'package:approducts/domain/model/model.dart';
 import 'package:approducts/domain/repository/repository.dart';
 import 'package:dartz/dartz.dart';
@@ -50,12 +51,11 @@ class RepositoryImpl extends Repository {
 
 
   @override
-  Future<Either<Failure, List<Map<String, dynamic>>>> categories() async {
+  Future<Either<Failure, List<CategoryItem>>> categories() async {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.categories();
-
-        return Right(response.toDomain());
+        return Right(response);
       } catch (error) {
         return Left(ErrorHandler.handle(error).failure);
       }

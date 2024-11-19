@@ -62,7 +62,7 @@ class ConfirmModalViewModel extends BaseViewModel
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
       for (var category in data) {
-        localRepositoryDatabase.insertCategory(category);
+        localRepositoryDatabase.insertCategory(category.toMap());
       }
     });
   }

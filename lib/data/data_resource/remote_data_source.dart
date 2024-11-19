@@ -8,7 +8,7 @@ import 'package:approducts/data/responses/responses.dart';
 abstract class RemoteDataSource {
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
   Future<ProductListResponse> products(ProductsRequest productsRequest);
-  Future<CategoryResponse> categories();
+  Future<List<CategoryItem>> categories();
   Future<List<BranchItem>> branches();
 }
 
@@ -28,7 +28,7 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   }
 
   @override
-  Future<CategoryResponse> categories() async {
+  Future<List<CategoryItem>> categories() async {
     return await _appServiceClient.getCategories();
   }
 

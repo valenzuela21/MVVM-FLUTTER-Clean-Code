@@ -26,7 +26,7 @@ abstract class AppServiceClient {
       );
 
   @GET('/categories/all')
-  Future<CategoryResponse> getCategories();
+  Future<List<CategoryItem>> getCategories();
 
   @GET('/brands/all')
   Future<List<BranchItem>> getBranches();

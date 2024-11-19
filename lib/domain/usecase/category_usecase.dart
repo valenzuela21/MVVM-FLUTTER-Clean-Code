@@ -1,4 +1,5 @@
 import 'package:approducts/data/network/failure.dart';
+import 'package:approducts/data/responses/category.respose.dart';
 import 'package:approducts/domain/model/model.dart';
 import 'package:dartz/dartz.dart';
 
@@ -10,7 +11,7 @@ class CategoryUseCase implements BaseUseCase<void, List<dynamic>>{
   CategoryUseCase(this._repository);
 
   @override
-  Future<Either<Failure, List<Map<String, dynamic>>>> execute(void input) async {
+  Future<Either<Failure, List<CategoryItem>>> execute(void input) async {
    return await _repository.categories();
   }
 }
