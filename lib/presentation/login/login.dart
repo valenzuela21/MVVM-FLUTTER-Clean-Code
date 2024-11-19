@@ -133,9 +133,11 @@ class _LoginState extends State<LoginView> {
                       stream: _viewModel.outputIsAllInputsValid,
                       builder: (context, snapshot) {
                         return ElevatedButton(
-                            onPressed: (snapshot.data ?? false)? (){
-                              _viewModel.login();
-                            }: null,
+                            onPressed: (){
+                              if(snapshot.data ?? false){
+                                _viewModel.login();
+                              }
+                            },
                             child: Text(AppStrings.start_session).tr());
                       })
                 ],
